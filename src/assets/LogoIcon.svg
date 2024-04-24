@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="57" height="57" fill="none" viewBox="0 0 57 57">
+  <g clip-path="url(#a)">
+    <path fill="url(#b)" d="M54.79 17.495H39.16V8.793A8.36 8.36 0 0 0 30.809.44H18.462a1.413 1.413 0 0 0-1.413 1.413v15.661h-8.7A8.357 8.357 0 0 0 0 25.86v12.35a1.413 1.413 0 0 0 1.413 1.413H17.05v8.7a8.36 8.36 0 0 0 8.35 8.348h12.346a1.413 1.413 0 0 0 1.414-1.413V39.603h8.7a8.364 8.364 0 0 0 8.352-8.352V18.909a1.413 1.413 0 0 0-1.42-1.413ZM26.746 36.778a3.558 3.558 0 1 1 .868-7.01 1.409 1.409 0 0 0 1.712-1.712 3.557 3.557 0 1 1 7.007-.868v9.59h-9.587Zm26.64-5.519a5.53 5.53 0 0 1-5.527 5.527h-8.7V27.19a6.38 6.38 0 0 0-12.753-.343 6.38 6.38 0 0 0-3.475 11.485 6.34 6.34 0 0 0 3.815 1.271h9.587v14.222H25.398a5.527 5.527 0 0 1-5.522-5.522V38.19a1.402 1.402 0 0 0-.414-1 1.409 1.409 0 0 0-1-.413H2.827V25.84a5.526 5.526 0 0 1 5.522-5.518h10.113a1.414 1.414 0 0 0 1.414-1.413V3.266h10.933a5.534 5.534 0 0 1 5.523 5.527v10.116a1.413 1.413 0 0 0 1.413 1.413h15.64v10.936Z"/>
+    <path fill="url(#c)" d="M36.331 39.603h2.827v2.61l-2.827 8.983V39.603Z" style="mix-blend-mode:overlay"/>
+    <path fill="url(#d)" d="M36.331 36.777v-1.059l2.827-5.873v6.932h-2.827Z" style="mix-blend-mode:overlay"/>
+  </g>
+  <defs>
+    <linearGradient id="b" x1="44.472" x2="11.738" y1="8.606" y2="48.491" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6156C0"/>
+      <stop offset="1" stop-color="#71C8CB"/>
+    </linearGradient>
+    <linearGradient id="c" x1="37.644" x2="37.782" y1="39.234" y2="47.594" gradientUnits="userSpaceOnUse">
+      <stop/>
+      <stop offset="1" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="d" x1="37.864" x2="37.726" y1="38.835" y2="32.478" gradientUnits="userSpaceOnUse">
+      <stop/>
+      <stop offset="1" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="a">
+      <path fill="#fff" d="M0 .44h56.211v56.211H0z"/>
+    </clipPath>
+  </defs>
+</svg>
