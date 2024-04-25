@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { setNewDoctor } from "@/services/DoctorRegisterServices";
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profilePicture from "../assets/profile-circled-svgrepo-com.svg";
 import Notification from "@/components/common/Notification";
 import toast, { Toaster } from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi"; // Import the check and x circle icons
 
 function DoctorRegister() {
+  const navigate = useNavigate();
   const [state, setstate] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [errorMessages, setErrorMessages] = useState([]);
@@ -61,7 +62,7 @@ function DoctorRegister() {
       setPreviewSource(reader.result);
     };
   };
-  const handleShowNotification = (message, isSuccess) => {
+  const handleShowNotification = (message, isSuccess, button, onClick) => {
     const iconColor = isSuccess ? "text-green-500" : "text-red-500"; // Define colors for success and error icons
     const icon = isSuccess ? (
       <HiCheckCircle size={24} className={iconColor} />
@@ -74,6 +75,8 @@ function DoctorRegister() {
           title={icon} // Use the icon as the title
           text={message}
           isSuccess={isSuccess}
+          button={button}
+          onClick={onClick}
         />
       ),
       {
@@ -81,6 +84,7 @@ function DoctorRegister() {
       }
     );
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirm_password) {
@@ -88,20 +92,23 @@ function DoctorRegister() {
       return;
     }
 
-    setNewDoctor(formData)
-      .then((response) => {
-        console.log(response);
-        localStorage.removeItem("token");
-        localStorage.setItem("token", response.token);
-        localStorage.setItem("id", `${response.doctor.doctor_id}`);
-        localStorage.setItem("role", `doctor`);
-        handleShowNotification("Doctor Created successfully!", true);
-      })
-
-      .catch((error) => {
-        console.log(error);
-        handleShowNotification("Error Creating Doctor", false);
-      });
+    try {
+      const response = await setNewDoctor(formData);
+      console.log(response);
+      localStorage.removeItem("token");
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("id", `${response.doctor.doctor_id}`);
+      localStorage.setItem("role", `doctor`);
+      handleShowNotification(
+        "Doctor Created successfully!",
+        true,
+        "Next", // You don't need the button and onClick props here
+        () => navigate("/setWorkingDays") // Navigate to the working days page if successful
+      );
+    } catch (error) {
+      console.error(error);
+      handleShowNotification("Error Creating Doctor", false);
+    }
   };
 
   return (

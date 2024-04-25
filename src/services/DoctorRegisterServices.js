@@ -47,7 +47,48 @@ export async function setNewDoctor({
 
     return response.data;
   } catch (error) {
-    // Handle any errors
+    throw error;
+  }
+}
+
+export async function login(email, password) {
+  const postData = {
+    email: email,
+    password: password,
+  };
+
+  try {
+    const response = await axios.post(
+      "https://api-medeg.online/api/medEG/doctor/login",
+      postData
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function setWorkingDays(day_of_week) {
+  const postData = {
+    doctor_id: localStorage.getItem("id"),
+    day_of_week: day_of_week,
+  };
+
+  const authToken = localStorage.getItem("token");
+  console.log(authToken);
+
+  try {
+    const response = await axios.post(
+      "https://api-medeg.online/api/medEG/day",
+      postData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
     throw error;
   }
 }

@@ -4,6 +4,9 @@ import axios from "axios";
 import { DateProvider } from "./context/DateContext";
 import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import DoctorRegister from "./pages/DoctorRegister";
+import Login from "./pages/Login";
+import DoctorWorkingDays from "./pages/DoctorWorkingDays";
 
 function App() {
   // let token = localStorage.getItem("token");
@@ -17,6 +20,9 @@ function App() {
       <DateProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<DoctorRegister />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
         </Routes>
       </DateProvider>
     </>

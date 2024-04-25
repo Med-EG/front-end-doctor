@@ -12,10 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  patientLogout,
-  getDoctorByID,
-} from "../../services/homeServices";
+import { patientLogout, getDoctorByID } from "../../services/homeServices";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -58,7 +55,7 @@ const Header = () => {
         localStorage.removeItem("id");
         localStorage.removeItem("med_id");
         localStorage.removeItem("role");
-        window.location.href = "http://medeg-eg.com/login";
+        window.location.href = "http://localhost:5174/login";
       })
       .catch((e) => {
         console.log(e);
@@ -103,7 +100,7 @@ const Header = () => {
               className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
               aria-label="Preline"
             >
-              <img src={logo} alt="logo"  className="w-40"/>
+              <img src={logo} alt="logo" className="w-40" />
             </Link>
             {/* End Logo */}
           </div>
