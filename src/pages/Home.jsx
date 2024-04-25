@@ -1,6 +1,6 @@
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
-import Doctors from "@/components/homeComponents/Doctors";
+import DoctorAssistantSection from "@/components/homeComponents/DoctorAssistantSection";
 import { useEffect } from "react";
 import Faqs from "@/components/common/Faqs";
 import MedicalRecord from "@/components/homeComponents/MedicalRecord";
@@ -9,8 +9,9 @@ import Main1 from "@/components/homeComponents/Main1";
 import MobileApp from "@/components/homeComponents/MobileApp";
 import useRequireAuth from "@/custom hooks/useRequireAuth";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const Home = () => {
-  // useRequireAuth();
+
 
   return (
     <div className="flex flex-col gap-14">
@@ -23,7 +24,7 @@ const Home = () => {
       {/* chat with dr section */}
       <DoctorChat />
       {/* Frequently asked questions section */}
-      <Doctors/>
+      <DoctorAssistantSection/>
       <div className="w-10/12 flex justify-center flex-col self-center items-center pb-24 pt-10">
         <Faqs />
       </div>

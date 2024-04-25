@@ -9,10 +9,10 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from "react-router-dom";
 
 function App() {
-  let token = localStorage.getItem("token");
+  // let token = localStorage.getItem("token");
 
   axios.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer 689|OvXMI1TIkVf1EUhSofL71JKkfQyKMPEq9uWgDiFkbf831e50`;
     return config;
   });
   return (

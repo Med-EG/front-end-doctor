@@ -23,7 +23,11 @@ export async function getAllDoctors() {
   return await axios.get("https://api-medeg.online/api/medEG/doctor");
 }
 export async function getDoctorByID(id) {
-  return await axios.get(`https://api-medeg.online/api/medEG/doctor/${id}`);
+  return await axios.get(`https://api-medeg.online/api/medEG/doctor/${id}`, {
+    headers: {
+      Authorization: `Bearer 609|ideMWOgvhgCNZsq7FSEusLvfokpTDUuxJHc1Evy7eaa870b6`,
+    },
+  });
 }
 export async function getDoctorContactNumbers(id) {
   return await axios.get(

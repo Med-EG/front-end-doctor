@@ -16,7 +16,7 @@ function Faqs() {
   return (
     <>
       {/* FAQ */}
-      <div className="w-8/12  pt-8 pb-12   mx-auto">
+      <div className="w-8/12  pt-20 pb-12   mx-auto">
         {/* Grid */}
         <div className="grid md:grid-cols-5 gap-10">
           <div className="md:col-span-2">

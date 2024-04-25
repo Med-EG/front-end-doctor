@@ -14,7 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
   patientLogout,
-  medicalRecordForPatient,
+  getDoctorByID,
 } from "../../services/homeServices";
 
 const Header = () => {
@@ -36,10 +36,7 @@ const Header = () => {
   }, [profileInfo]);
 
   useEffect(() => {
-    medicalRecordForPatient(
-      parseInt(localStorage.getItem("id")),
-      parseInt(localStorage.getItem("token"))
-    )
+    getDoctorByID(10)
       .then((res) => {
         setProfileInfo(res.data);
       })
@@ -106,7 +103,7 @@ const Header = () => {
               className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
               aria-label="Preline"
             >
-              <img src={logo} alt="logo" />
+              <img src={logo} alt="logo"  className="w-40"/>
             </Link>
             {/* End Logo */}
           </div>

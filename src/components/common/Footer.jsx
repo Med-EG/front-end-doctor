@@ -8,7 +8,7 @@ function Footer() {
       />
       <img src={footer} alt="footer" className="footer-image py-12" />
 
-      <p className="footer-text">&copy; 2023 MedEG. All rights reserved.</p>
+      <p className="footer-text">&copy; 2024 MedEG. All rights reserved.</p>
     </footer>
   );
 }
