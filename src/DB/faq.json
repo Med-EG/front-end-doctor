@@ -1,0 +1,29 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "question": "How secure is my medical data within the application?",
+      "answer": "We take the security and privacy of your medical data very seriously. Our application employs state-of-the-art encryption techniques to safeguard your information. Additionally, access to your medical records is strictly controlled and only authorized healthcare professionals involved in your care have access to them."
+    },
+    {
+      "id": 2,
+      "question": "Can I easily share my medical records with other healthcare providers outside of the app?",
+      "answer": "Yes, you have the option to securely share your medical records with other healthcare providers. Our application allows you to generate shareable links or PDFs of your medical records, which you can then provide to other healthcare professionals as needed."
+    },
+    {
+      "id": 3,
+      "question": "How do I book appointments with doctors through the app?",
+      "answer": "Booking appointments with doctors is simple and convenient with our application. You can browse through the list of available doctors, view their schedules, and book appointments based on your preferred time slots. Additionally, you'll receive reminders and notifications to ensure you don't miss your appointments."
+    },
+    {
+      "id": 4,
+      "question": "Is there a feature for me to communicate with my doctor directly within the app?",
+      "answer": "Absolutely! Our application includes a secure messaging feature that allows you to communicate directly with your doctor. Whether you have questions about your medical condition, need to discuss treatment options, or simply want to follow up on your progress, you can easily initiate conversations with your healthcare provider through the app."
+    },
+    {
+      "id": 5,
+      "question": "Can I update my medical information and history within the app?",
+      "answer": "Yes, you have full control over your medical information within the app. You can easily update your personal details, medical history, allergies, medications, and any other relevant information. Keeping your medical records accurate and up-to-date ensures that your healthcare providers have the most comprehensive understanding of your health status."
+    }
+  ]
+}

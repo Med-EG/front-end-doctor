@@ -1,42 +1,225 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Customized Styles */
+/* ============================================================== */
+* {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+  outline: none;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+ul {
+  list-style: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+Link {
+  text-decoration: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.primary-color {
+  color: #213359;
+}
+
+.bg-primary-color {
+  background-color: #213359;
+}
+
+.secondary-color {
+  color: #223a6a;
+}
+
+.bg-secondary-color {
+  background-color: #223a6a;
+}
+
+.blue-1 {
+  color: #407ce2;
+}
+
+.bg-blue-1 {
+  background-color: #407ce2;
+}
+
+.blue-2 {
+  color: #98b3e1;
+}
+
+.bg-blue-2 {
+  background-color: #98b3e1;
+}
+
+.gray {
+  color: #f1f3f5;
+}
+
+.offwhite {
+  color: #f1f3f5;
+}
+
+.gradient-background {
+  background: linear-gradient(to left, #6fb7c9, #3d5bad);
+}
+
+.gradient-text {
+  background: linear-gradient(to left, #6fb7c9, #3d5bad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.primary-text-thin {
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.primary-text-light {
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.primary-text-regular {
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.primary-text-medium {
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.primary-text-semibold {
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.primary-text-bold {
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.primary-text-extrabold {
+  font-family: "Encode Sans Expanded", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.secondary-text-light {
+  font-family: "Krub", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.secondary-text-regular {
+  font-family: "Krub", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.secondary-text-medium {
+  font-family: "Krub", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.secondary-text-semibold {
+  font-family: "Krub", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.secondary-text-bold {
+  font-family: "Krub", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@media (mmin-width: 700px) {
+  .h-80vh{
+    height: 80vh;
   }
-  to {
-    transform: rotate(360deg);
+}
+@media (max-width: 640px) {
+  .opacity-faded {
+    opacity: 0;
+  }
+
+  .xsfull {
+    width: 100%;
+  }
+
+  .xs-text-center {
+    text-align: center;
+  }
+  .xs-gap-3{
+    gap: 0.75rem;
+  }
+  .xs-text-xl{
+    font-size: 2rem;
+  }
+  .xs-text-2xl{
+    font-size: 4rem;
+  }
+  .xs-items-center{
+    align-items: center;
+  }
+
+  .xs-flex-col {
+    flex-direction: column;
+  }
+  .xs-width-full {
+    width: 100%;
+  }
+
+  .xs-order-2 {
+    order: 2;
+  }
+
+  .xs-order-1 {
+    order: 1;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.fs-half {
+  min-height: 0.5px;
 }
 
-.card {
-  padding: 2em;
+/* ============================================================================================ */
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.read-the-docs {
-  color: #888;
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+/* @src/App.module.css */
+.notificationWrapper {
+  @apply flex flex-row items-center justify-between w-96 bg-blue-800 px-4 py-6 text-white shadow-2xl hover:shadow-none transform-gpu translate-y-0 hover:translate-y-1 rounded-xl relative transition-all duration-500 ease-in-out;
+}
+.iconWrapper {
+  @apply text-xl;
+}
+.contentWrapper {
+  @apply flex flex-col items-start justify-center ml-4 cursor-default;
+}
+.contentWrapper h1 {
+  @apply text-base text-gray-200 font-semibold leading-none tracking-wider;
+}
+.contentWrapper p {
+  @apply text-sm text-white mt-2 leading-relaxed tracking-wider;
+}
+.closeIcon {
+  @apply absolute top-2 right-2 cursor-pointer text-lg;
 }
