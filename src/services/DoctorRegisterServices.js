@@ -1,0 +1,53 @@
+import axios from "axios";
+
+export async function setNewDoctor({
+  first_name,
+  last_name,
+  email,
+  password,
+  confirm_password,
+  gender,
+  specialization,
+  education,
+  license_id,
+  country,
+  city,
+  street,
+  scientific_degree,
+  doctor_image,
+  price,
+  rating,
+  years_of_experience,
+}) {
+  try {
+    const postData = new FormData();
+
+    postData.append("first_name", first_name);
+    postData.append("last_name", last_name);
+    postData.append("email", email);
+    postData.append("password", password);
+    postData.append("confirm_password", confirm_password);
+    postData.append("gender", gender);
+    postData.append("specialization", specialization);
+    postData.append("education", education);
+    postData.append("license_id", parseInt(license_id));
+    postData.append("country", country);
+    postData.append("city", city);
+    postData.append("street", street);
+    postData.append("scientific_degree", scientific_degree);
+    postData.append("doctor_image", doctor_image);
+    postData.append("price", price);
+    postData.append("rating", parseInt(rating));
+    postData.append("years_of_experience", parseInt(years_of_experience));
+
+    const response = await axios.post(
+      "https://api-medeg.online/api/medEG/doctor/signup",
+      postData
+    );
+
+    return response.data;
+  } catch (error) {
+    // Handle any errors
+    throw error;
+  }
+}
