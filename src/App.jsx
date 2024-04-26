@@ -1,11 +1,9 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import axios from 'axios';
 import { DateProvider } from "./context/DateContext";
-import React, { useEffect } from 'react';
+import React, { useEffect , useState } from "react";
 import { Route, Routes } from "react-router-dom";
+
 
 // Pages imports
 import Home from "./pages/Home";
@@ -21,6 +19,9 @@ import MedicationEditPage from "./pages/MedicationEditPage";
 import FatherEdit from "./pages/FatherEdit";
 import MotherEdit from "./pages/MotherEdit";
 import SecondDegreeEdit from "./pages/SecondDegreeEdit";
+import DoctorRegister from "./pages/DoctorRegister";
+import Login from "./pages/Login";
+import DoctorWorkingDays from "./pages/DoctorWorkingDays";
 
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
       <DateProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/signup" element={<DoctorRegister />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
           <Route path="/MedicalRecord" element={<MedicalRecord />} />
           <Route path="/addDisease" element={<AddNewDisease />} />
           <Route path="/addMedicine" element={<AddNewMedicine />} />
@@ -50,8 +54,8 @@ function App() {
         </Routes>
       </DateProvider>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
 

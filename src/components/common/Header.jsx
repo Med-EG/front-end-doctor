@@ -91,6 +91,7 @@ const Header = () => {
               aria-label="Preline"
             >
               <img src={logo} alt="logo" className="w-40" />
+              <img src={logo} alt="logo" className="w-40" />
             </Link>
             {/* End Logo */}
           </div>

@@ -7,24 +7,20 @@ import MedicalRecord from "@/components/homeComponents/MedicalRecord";
 import DoctorChat from "@/components/homeComponents/DoctorChat";
 import Main1 from "@/components/homeComponents/Main1";
 import MobileApp from "@/components/homeComponents/MobileApp";
-import useRequireAuth from "@/custom hooks/useRequireAuth";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 const Home = () => {
-
-
   return (
     <div className="flex flex-col gap-14">
       <Header />
 
       <Main1 />
-      
+
       {/* keep updated section */}
       <MedicalRecord />
       {/* chat with dr section */}
       <DoctorChat />
       {/* Frequently asked questions section */}
-      <DoctorAssistantSection/>
+      <DoctorAssistantSection />
       <div className="w-10/12 flex justify-center flex-col self-center items-center pb-24 pt-10">
         <Faqs />
       </div>

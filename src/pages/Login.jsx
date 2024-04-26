@@ -1,42 +1,35 @@
-import Patient from "../services/Register";
 import logo from "../assets/logo.svg";
-import logoIcon from "../assets/LogoIcon.svg";
+import logoIcon from "../assets/doctorslogo.svg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../services/DoctorRegisterServices";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passError, setPassError] = useState("");
-  const [pat, setPateint] = useState(new Patient());
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      window.location.href = "http://medeg-eg.com/";
+      window.location.href = "http://localhost:5174/";
     } else {
       // No token found, redirect to the login page
     }
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    pat
-      .login()
-      .then((response) => {
-        localStorage.removeItem("token");
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("id", `${response.data.patient.patient_id}`);
-        localStorage.setItem(
-          "med_id",
-          `${response.data.patient.basic_medical_info.medical_record_id}`
-        );
-        localStorage.setItem("role", "patient");
-        navigate("/");
-      })
-      .catch((error) => {
-        setPassError(error.response.data.message);
-      });
+    try {
+      const response = await login(email, password);
+      localStorage.removeItem("token");
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("id", `${response.doctor.doctor_id}`);
+      localStorage.setItem("role", "doctor");
+      navigate("/");
+    } catch (error) {
+      setPassError("Invalid Email Or Password");
+    }
   };
   return (
     <>
@@ -65,11 +58,12 @@ function Login() {
                     <input
                       type="email"
                       id="email"
+                      value={email}
                       name="email"
                       className=" border-2 py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                       required
                       aria-describedby="email-error"
-                      onChange={(e) => (pat.email = e.target.value)}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                     <div className="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
                       <svg
@@ -112,8 +106,9 @@ function Login() {
                   <input
                     id="hs-toggle-password-with-checkbox"
                     type="password"
+                    value={password}
                     className="py-3 px-4 block w-full border-gray-200 border-2 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    onChange={(e) => (pat.password = e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
 
                   <div className="flex mt-4">
