@@ -55,7 +55,7 @@ const Header = () => {
         localStorage.removeItem("id");
         localStorage.removeItem("med_id");
         localStorage.removeItem("role");
-        window.location.href = "http://localhost:5174/login";
+        window.location.href = "http://localhost:5173/login";
       })
       .catch((e) => {
         console.log(e);

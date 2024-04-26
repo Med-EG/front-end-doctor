@@ -2,8 +2,10 @@ import { useState } from "react";
 import { setWorkingDays } from "../services/DoctorRegisterServices";
 import logoIcon from "../assets/doctorslogo.svg";
 import Footer from "../components/common/Footer";
+import { useNavigate } from "react-router-dom";
 
 function DoctorWorkingDays() {
+  const navigate = useNavigate();
   const days = [
     "Saturday",
     "Sunday",
@@ -42,6 +44,7 @@ function DoctorWorkingDays() {
       console.log("Working days set successfully:", selectedDays);
       // Reset selected days
       setSelectedDays([]);
+      navigate("/setWorkingHours");
     } catch (error) {
       console.error("Error setting working days:", error);
     }

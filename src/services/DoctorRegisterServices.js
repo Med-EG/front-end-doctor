@@ -92,3 +92,32 @@ export async function setWorkingDays(day_of_week) {
     throw error;
   }
 }
+export async function setWorkingHours(start_time, end_time, working_day_id) {
+  const postData = {
+    doctor_id: localStorage.getItem("id"),
+    working_day_id: working_day_id,
+    start_time: start_time,
+    end_time: end_time,
+  };
+  try {
+    const response = await axios.post(
+      "https://api-medeg.online/api/medEG/hour",
+      postData,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+export async function getAllWorkingDaysForADoctor() {
+  return axios.get(
+    `https://api-medeg.online/api/medEG/day/doctor/${localStorage.getItem(
+      "id"
+    )}`
+  );
+}
