@@ -5,37 +5,31 @@ export async function getAllMedicine() {
 }
 
 // get all functions using med_id
-export async function getAllDiseases() {
+export async function getAllDiseases(med_id) {
   return await axios.get(
-    `https://api-medeg.online/api/medEG/disease-info/rec/${localStorage.getItem(
-      "med_id"
-    )}`
+    `https://api-medeg.online/api/medEG/disease-info/rec/${med_id}`
   );
 }
 
-export async function getAllMedications() {
+export async function getAllMedications(med_id) {
   return await axios.get(
-    `https://api-medeg.online/api/medEG/medication-info/rec/${localStorage.getItem(
-      "med_id"
-    )}`
+    `https://api-medeg.online/api/medEG/medication-info/rec/${med_id}`
   );
 }
 
-export async function getAllOperations() {
+export async function getAllOperations(med_id) {
   return await axios.get(
-    `https://api-medeg.online/api/medEG/operation-info/rec/${localStorage.getItem(
-      "med_id"
-    )}`
+    `https://api-medeg.online/api/medEG/operation-info/rec/${med_id}`
   );
 }
 
-export async function getAllAllergies() {
+export async function getAllAllergies(med_id) {
   return await axios.get(
-    `https://api-medeg.online/api/medEG/allergy-info/rec/${localStorage.getItem(
-      "med_id"
-    )}`
+    `https://api-medeg.online/api/medEG/allergy-info/rec/${med_id}`
   );
 }
+
+
 // get all functions using id
 export async function getAllergyById(id) {
   return await axios.get(

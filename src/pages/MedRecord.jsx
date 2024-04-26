@@ -9,93 +9,140 @@ import {
   getAllDiseases,
   getAllOperations,
 } from "@/services/Record";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import DiseaseInfo from "@/components/Record/DiseaseInfo";
 import MedicationInfo from "@/components/Record/MedicationInfo";
 import AllergyInfo from "@/components/Record/AllergyInfo";
 import OperationInfo from "@/components/Record/OperationInfo";
 import FamilyInfo from "@/components/Record/FamilyInfo";
 import useRequireAuth from "@/custom hooks/useRequireAuth";
-function MedRecord() {
-  useRequireAuth();
 
-  const [record, setrecord] = useState([]);
+function MedRecord() {
+  // useRequireAuth();
+
+  const [record, setRecord] = useState(null);
   const [diseases, setDiseases] = useState([]);
   const [medications, setMedications] = useState([]);
   const [allergies, setAllergies] = useState([]);
   const [operations, setOperations] = useState([]);
-  useEffect(() => {
-    medicalRecordForPatient(
-      localStorage.getItem("id"),
-      localStorage.getItem("token")
-    )
+  const [searching, setSearching] = useState(false);
+  const [searchId, setSearchId] = useState("");
+  const [firstRun, setFirstRun] = useState(true);
+
+  const searchForPatient = (Id) => {
+    setFirstRun(false)
+    setSearching(true);
+    medicalRecordForPatient(Id)
       .then((response) => {
-        // Check if response has data and set the record state
         if (response && response.data) {
-          setrecord(response.data);
+          setRecord(response.data);
+          setSearching(false);
+        } else {
+          setRecord(null); // Clear previous record if not found
+          setSearching(false);
         }
       })
       .catch((error) => {
         console.error("Error fetching medical record:", error);
+        setRecord(null);
+        setSearching(false);
         // Handle error here
       });
 
-    getAllDiseases().then((response) => {
+    getAllDiseases(Id).then((response) => {
       setDiseases(response.data);
+      console.log(response.data);
     });
 
-    getAllMedications().then((response) => {
+    getAllMedications(Id).then((response) => {
       setMedications(response.data);
+
     });
 
-    getAllOperations().then((response) => {
+    getAllOperations(Id).then((response) => {
       setOperations(response.data);
+
     });
 
-    getAllAllergies().then((response) => {
+    getAllAllergies(Id).then((response) => {
       setAllergies(response.data);
+
     });
-  }, []);
+  };
 
   return (
     <>
       <Header />
-
-      <div className="flex flex-col items-center justify-center ">
-        <h2 className="primary-text-semibold text-3xl">Medical Record ID</h2>
-        <h2 className="gradient-text font-bold text-2xl">
-          # {record.medical_record_id}
-        </h2>
+      <div className="flex w-10/12 m-auto p-5  items-center space-x-2 gap-5">
+        <input type="text" placeholder="Enter Patient Medical Record ID Here ..." className="w-5/6 p-5 bg-slate-100 rounded-xl" onChange={(e) => setSearchId(e.target.value)} />
+        <button className="w-1/6 text-center bg-blue-500 p-5 rounded-xl primary-text-bold text-white" type="submit" onClick={() => searchForPatient(searchId)} disabled={searching}><i class="fa-solid fa-magnifying-glass"></i> Search</button>
       </div>
-      <section className="flex flex-col gap-10">
-        <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl mb-16">
-          {record && <BasicMedicalData record={record} />}
-        </section>
+      {firstRun ?
+        <>
+          <div className="h-96 w-full flex justify-center items-center">
+            <div className="text-center w-full flex flex-col justify-center items-center" >
+              <i class="fa-solid fa-magnifying-glass fa-10x " style={{ color: "rgb(148 163 184)" }}></i>
+              <h2 className="text-5xl primary-text-bold text-slate-400 py-7">Search for Medical Records</h2>
+            </div>
+          </div>
+        </>
+        : <>{searching ? (
+          <div className="h-96 w-full flex justify-center items-center">
+          <div className="text-center w-full flex flex-col justify-center items-center" >
+            <i class="fa-solid fa-spinner fa-10x " style={{ color: "rgb(148 163 184)" }}></i>
+            <h2 className="text-5xl primary-text-bold text-slate-400 py-7">Loading....</h2>
+          </div>
+        </div>
+        ) : record ? (
+          <section>
+            <div className="flex flex-col items-center justify-center ">
+              <h2 className="primary-text-semibold text-3xl">Medical Record ID</h2>
+              <h2 className="gradient-text font-bold text-2xl">
+                # {record.medical_record_id}
+              </h2>
+            </div>
+            <section className="flex flex-col gap-10">
+              <section className="flex flex-col gap-10">
+                <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
+                  <BasicMedicalData record={record} />
+                </section>
 
-        <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-          <DiseaseInfo diseases={diseases} />
-        </section>
+                <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
+                  <DiseaseInfo diseases={diseases} />
+                </section>
 
-        <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-          <MedicationInfo medications={medications} />
-        </section>
+                <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
+                  <MedicationInfo medications={medications} />
+                </section>
 
-        <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-          <AllergyInfo allergy={allergies} />
-        </section>
+                <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
+                  <AllergyInfo allergy={allergies} />
+                </section>
 
-        <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-          <OperationInfo operation={operations} />
-        </section>
+                <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
+                  <OperationInfo operation={operations} />
+                </section>
 
-        <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-          <FamilyInfo
-            father={record.father}
-            mother={record.mother}
-            second={record.second_degree}
-          />
-        </section>
-      </section>
+                <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
+                  <FamilyInfo
+                    father={record.father}
+                    mother={record.mother}
+                    second={record.second_degree}
+                  />
+                </section>
+              </section>
 
+            </section>
+          </section>
+        ) : (
+          <div className="h-96 w-full flex justify-center items-center">
+            <div className="text-center w-full flex flex-col justify-center items-center" >
+              <i class="fa-solid fa-ban fa-10x " style={{ color: "rgb(148 163 184)" }}></i>
+              <h2 className="text-5xl primary-text-bold text-slate-400 py-7">Patient Not Found</h2>
+            </div>
+          </div>
+        )}</>}
       <Footer />
     </>
   );

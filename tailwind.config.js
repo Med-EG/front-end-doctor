@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const { fontFamily } = require("tailwindcss/defaultTheme")
 import { screens as _screens } from 'tailwindcss/defaultTheme'
 export const darkMode = ["class"]
 export const content = [
@@ -80,4 +81,5 @@ export const theme = {
 export const plugins = [
   // require("tailwindcss-animate"),
   require('preline/plugin'),
+  require("tailwindcss-animate")
 ]

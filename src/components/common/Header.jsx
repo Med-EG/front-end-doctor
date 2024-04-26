@@ -13,32 +13,20 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
-  patientLogout,
   getDoctorByID,
+  doctorLogout,
 } from "../../services/homeServices";
 
 const Header = () => {
   const navigate = useNavigate();
   const [profileInfo, setProfileInfo] = useState([]);
-  const [age, setAge] = useState(null);
 
-  const calculateAge = () => {
-    const today = new Date();
-    const birthDateObj = new Date(profileInfo?.patient?.birth_date);
-    const diff = today - birthDateObj;
-    const ageDate = new Date(diff);
-    const calculatedAge = Math.abs(ageDate.getUTCFullYear() - 1970);
-
-    setAge(calculatedAge);
-  };
-  useEffect(() => {
-    calculateAge();
-  }, [profileInfo]);
 
   useEffect(() => {
     getDoctorByID(10)
       .then((res) => {
         setProfileInfo(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         throw err;
@@ -52,13 +40,12 @@ const Header = () => {
   }
   // function logout() {}
   const logout = async () => {
-    patientLogout(localStorage.getItem("token"))
+    doctorLogout(localStorage.getItem("token"))
       .then((res) => {
         localStorage.removeItem("token");
         localStorage.removeItem("id");
-        localStorage.removeItem("med_id");
         localStorage.removeItem("role");
-        window.location.href = "http://medeg-eg.com/login";
+        window.location.href = "http://localhost:1573/login";
       })
       .catch((e) => {
         console.log(e);
@@ -77,7 +64,7 @@ const Header = () => {
     },
     {
       label: "Medical Records",
-      to: "/records",
+      to: "/MedicalRecord",
     },
     {
       label: "Chat",
@@ -103,7 +90,7 @@ const Header = () => {
               className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
               aria-label="Preline"
             >
-              <img src={logo} alt="logo"  className="w-40"/>
+              <img src={logo} alt="logo" className="w-40" />
             </Link>
             {/* End Logo */}
           </div>
@@ -113,46 +100,21 @@ const Header = () => {
             <DropdownMenu>
               <DropdownMenuTrigger>
                 <img
-                  src={`https://api-medeg.online/${profileInfo?.patient?.personal_image}`}
+                  src={`https://api-medeg.online/${profileInfo?.doctor?.doctor_image}`}
                   alt={user}
                   className="rounded-full w-12 h-12 primary-color bg-blue-1"
                 />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="rounded-xl  ">
-                <DropdownMenuItem className="px-8">
-                  <div className="flex flex-col justify-center items-center gap-4">
-                    <div className="flex flex-col items-center">
-                      <h2 className="primary-color primary-text-semibold text-base">
-                        {profileInfo?.patient?.username}
+                <DropdownMenuItem className="px-5 py-8">
+                  <div className="flex flex-col justify-center items-center w-full">
+                    <div className="flex flex-col items-center justify-center">
+                      <h2 className="primary-color primary-text-semibold text-center">
+                        {profileInfo?.doctor?.first_name} {profileInfo?.doctor?.last_name}
                       </h2>
-                      <div className="primary-color secondary-text-semibold">
-                        {age} Years old
-                      </div>
-                    </div>
-
-                    <div className="flex gap-6">
-                      <div className="flex flex-col gap-2 items-center">
-                        <div className="blue-1 secondary-text-regular">
-                          {profileInfo.height}
-                          <sub className="secondary-color secondary-text-regular pl-1">
-                            CM
-                          </sub>
-                        </div>
-                        <h4 className="secondary-color secondary-text-regular">
-                          Height
-                        </h4>
-                      </div>
-                      <div className="flex flex-col gap-2 items-center">
-                        <div className="blue-1 secondary-text-regular">
-                          {profileInfo.weight}
-                          <sub className="secondary-color secondary-text-regular pl-1">
-                            KG
-                          </sub>
-                        </div>
-                        <h4 className="secondary-color secondary-text-regular">
-                          Weight
-                        </h4>
-                      </div>
+                      <h2 className="primary-color primary-te xt-semibold text-center">
+                        {profileInfo?.doctor?.specialization}
+                      </h2>
                     </div>
                   </div>
                 </DropdownMenuItem>
@@ -162,7 +124,7 @@ const Header = () => {
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="flex justify-center primary-color secondary-text-semibold">
-                  <button onClick={medicalrecord}>medical record</button>
+                  <button onClick={medicalrecord}>Edit Working Days & Hours</button>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="flex justify-center  text-red-500 secondary-text-semibold  focus:bg-red-400 focus:text-white">
@@ -206,9 +168,8 @@ const Header = () => {
           {/* Collapse */}
           <div
             id="navbar-collapse-with-animation"
-            className={`hs-collapse ${
-              isCollapsed ? "hidden" : ""
-            } overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6`}
+            className={`hs-collapse ${isCollapsed ? "hidden" : ""
+              } overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6`}
           >
             <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
               {navLinks.map((link, index) => (
