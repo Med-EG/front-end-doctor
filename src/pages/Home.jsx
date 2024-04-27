@@ -7,8 +7,10 @@ import MedicalRecord from "@/components/homeComponents/MedicalRecord";
 import DoctorChat from "@/components/homeComponents/DoctorChat";
 import Main1 from "@/components/homeComponents/Main1";
 import MobileApp from "@/components/homeComponents/MobileApp";
+import useRequireAuth from "@/custom hooks/useRequireAuth";
 
 const Home = () => {
+  useRequireAuth();
   return (
     <div className="flex flex-col gap-14">
       <Header />

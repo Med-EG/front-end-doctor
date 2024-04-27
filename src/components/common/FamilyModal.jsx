@@ -24,16 +24,15 @@ function FamilyModal({ title, itemDiseases, itemTitle }) {
               {title}
             </h1>
           </AlertDialogHeader>
+          <h2 className="primary-text-medium text-2xl primary-color">
+              {itemTitle} :
+            </h2>
           <h2 className="text-lg font-semibold blue-1">
-            {" "}
-            <span className="primary-text-medium text-2xl primary-color">
-              {itemTitle} :{" "}
-            </span>
             {itemDiseases}
           </h2>
           <AlertDialogDescription></AlertDialogDescription>
           <AlertDialogFooter>
-            <AlertDialogCancel>exit</AlertDialogCancel>
+            <AlertDialogCancel className="py-3 px-5 rounded-xl shadow-slate-400 shadow-md">exit</AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

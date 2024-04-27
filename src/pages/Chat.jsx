@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import ChatItem from "@/components/common/ChatItem";
 import doctor3 from "../assets/doctor3.png";
 import {
-  getAllChatsForOnePatient,
+  getAllChatsForOneDoctor,
   getAllMessagesForOneChat,
   sendMessage,
   getChatById,
@@ -15,20 +15,20 @@ import useRequireAuth from "@/custom hooks/useRequireAuth";
 
 function Chat2() {
   useRequireAuth();
-  const [selectedChat, setSelectedChat] = useState([]);
-  const [count, setcount] = useState(0);
-  const [chatId, setChatId] = useState(1);
+  // const [selectedChat, setSelectedChat] = useState([]);
+  // const [count, setcount] = useState(0);
+  // const [chatId, setChatId] = useState(1);
   const scrollRef = useRef(null);
-
   const [chats, setChats] = useState([]);
-  const [selectedDoctorId, setSelectedDoctorId] = useState(null);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    getAllChatsForOnePatient(localStorage.getItem("id"))
+    getAllChatsForOneDoctor(localStorage.getItem("id"))
       .then((res) => {
         setChats(res.data);
+        console.log(res.data)
       })
       .catch((err) => {
         console.error("Error fetching chats:", err);
@@ -38,13 +38,13 @@ function Chat2() {
   useEffect(() => {
     let timer;
     const fetchMessages = async () => {
-      if (selectedDoctorId) {
-        getAllMessagesForOneChat(selectedDoctorId)
+      if (selectedPatientId) {
+        getAllMessagesForOneChat(selectedPatientId)
           .then((res) => {
             setMessages(res.data);
           })
           .catch((err) => {
-            console.error("Error fetching messages for doctor:", err);
+            console.error("Error fetching messages for patient:", err);
           });
       }
     };
@@ -55,7 +55,7 @@ function Chat2() {
     return () => {
       clearInterval(timer);
     };
-  }, [selectedDoctorId]);
+  }, [selectedPatientId]);
 
   useEffect(() => {
     // Scroll to the end after messages state has been updated
@@ -66,7 +66,7 @@ function Chat2() {
   }, [messages]);
 
   const handleChatClick = (chat) => {
-    setSelectedDoctorId(chat.chat_id);
+    setSelectedPatientId(chat.chat_id);
     scrollRef.current?.scrollTo({
       top: scrollRef.current.scrollHeight,
       behavior: "smooth",
@@ -74,8 +74,8 @@ function Chat2() {
   };
 
   const messagesSent = async () => {
-    await sendMessage(selectedDoctorId, localStorage.getItem("id"), inputValue);
-    getAllMessagesForOneChat(selectedDoctorId)
+    await sendMessage(selectedPatientId, localStorage.getItem("id"), inputValue);
+    getAllMessagesForOneChat(selectedPatientId)
       .then((res) => {
         setMessages(res.data);
         var inputs = document.getElementsByClassName("message_value");
@@ -106,14 +106,14 @@ function Chat2() {
                   {chats.map((chat, index) => (
                    <>
                    <li
-                      className={`flex flex-col items-start w-96  shadow-lg shadow-gray-300 p-5  text-gray-900 rounded-lg dark:text-white ${selectedDoctorId === chat.chat_id ? 'bg-blue-500 text-white' : ''}`}
+                      className={`flex flex-col items-start w-96  shadow-lg shadow-gray-300 p-5  text-gray-900 rounded-lg dark:text-white ${selectedPatientId === chat.chat_id ? 'bg-blue-500 text-white' : ''}`}
                       key={index}
                       onClick={() => handleChatClick(chat)}
                     >
                       <ChatItem
-                        src={chat?.doctor?.doctor_image}
+                        src={chat?.patient?.personal_image}
                         key={index}
-                        name={`Dr ${chat?.doctor.first_name} ${chat?.doctor.last_name}`}
+                        name={`${chat?.patient.first_name} ${chat?.patient.last_name}`}
                       />
                     </li>
                     </>

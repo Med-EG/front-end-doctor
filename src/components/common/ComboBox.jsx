@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function MyCombobox({ options = [], setName, placeholder, def }) {
+function MyCombobox({ options = [], setName, placeholder, defaultValue }) {
   const defaultSelectedOption = options.length > 0 ? options[0] : "";
   const [selectedOption, setSelectedOption] = useState(defaultSelectedOption);
   const [query, setQuery] = useState("");
@@ -43,6 +43,7 @@ function MyCombobox({ options = [], setName, placeholder, def }) {
         value={query}
         onChange={handleInputChange}
         onBlur={handleInputBlur}
+        defaultValue={defaultValue && defaultValue==null ?null:defaultValue }
         className="w-1/2 py-3 px-5 h-full rounded-s-lg border-2 border-blue-300"
         placeholder={placeholder}
       />

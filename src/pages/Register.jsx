@@ -8,6 +8,12 @@ import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 import toast, { Toaster } from "react-hot-toast";
 
 function Signup() {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "http://localhost:5173/";
+    }
+  }, []);
   const [state, setstate] = useState("");
   const [errorMessages, setErrorMessages] = useState([]);
   const [previewSource, setPreviewSource] = useState(profilePicture);

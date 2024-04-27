@@ -71,12 +71,39 @@ function MedRecord() {
     });
   };
 
+
+  const forceRerender = (component) => {
+    switch (component) {
+      case "DiseaseInfo":
+        getAllDiseases(searchId).then((response) => {
+          setDiseases(response.data);
+        });
+        break;
+      case "MedicationInfo":
+        getAllMedications(searchId).then((response) => {
+          setMedications(response.data);
+        });
+        break;
+      case "AllergyInfo":
+        getAllAllergies(searchId).then((response) => {
+          setAllergies(response.data);
+        });
+        break;
+      case "OperationInfo":
+        getAllOperations(searchId).then((response) => {
+          setOperations(response.data);
+        });
+        break;
+      default:
+        break;
+    }
+  };
   return (
     <>
       <Header />
-      <div className="flex w-10/12 m-auto p-5  items-center space-x-2 gap-5">
-        <input type="text" placeholder="Enter Patient Medical Record ID Here ..." className="w-5/6 p-5 bg-slate-100 rounded-xl" onChange={(e) => setSearchId(e.target.value)} />
-        <button className="w-1/6 text-center bg-blue-500 p-5 rounded-xl primary-text-bold text-white" type="submit" onClick={() => searchForPatient(searchId)} disabled={searching}><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+      <div className="flex lg:flex-row md:flex-row sm:flex-col xs-flex-col w-10/12 m-auto p-5  items-center space-x-2 gap-5">
+        <input type="text" placeholder="Enter Patient Medical Record ID Here ..." className="lg:w-5/6 md:w-4/6 sm:w-3/6 xs-width-full p-5 bg-slate-100 rounded-xl" onChange={(e) => setSearchId(e.target.value)} />
+        <button className="lg:w-1/6 md:w-2/3 sm:w-3/6 xs-width-full text-center bg-blue-500 p-5 rounded-xl primary-text-bold text-white" type="submit" onClick={() => searchForPatient(searchId)} disabled={searching}><i class="fa-solid fa-magnifying-glass"></i> Search</button>
       </div>
       {firstRun ?
         <>
@@ -89,11 +116,11 @@ function MedRecord() {
         </>
         : <>{searching ? (
           <div className="h-96 w-full flex justify-center items-center">
-          <div className="text-center w-full flex flex-col justify-center items-center" >
-            <i class="fa-solid fa-spinner fa-10x " style={{ color: "rgb(148 163 184)" }}></i>
-            <h2 className="text-5xl primary-text-bold text-slate-400 py-7">Loading....</h2>
+            <div className="text-center w-full flex flex-col justify-center items-center" >
+              <i class="fa-solid fa-spinner fa-10x " style={{ color: "rgb(148 163 184)" }}></i>
+              <h2 className="text-5xl primary-text-bold text-slate-400 py-7">Loading....</h2>
+            </div>
           </div>
-        </div>
         ) : record ? (
           <section>
             <div className="flex flex-col items-center justify-center ">
@@ -109,19 +136,19 @@ function MedRecord() {
                 </section>
 
                 <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-                  <DiseaseInfo diseases={diseases} />
+                  <DiseaseInfo diseases={diseases} med_id={searchId}  forceRerender={() => forceRerender("DiseaseInfo")} />
                 </section>
 
                 <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-                  <MedicationInfo medications={medications} />
+                  <MedicationInfo medications={medications} med_id={searchId} forceRerender={() => forceRerender("MedicationInfo")} />
                 </section>
 
                 <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-                  <AllergyInfo allergy={allergies} />
+                  <AllergyInfo allergy={allergies} med_id={searchId} forceRerender={() => forceRerender("AllergyInfo")} />
                 </section>
 
                 <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">
-                  <OperationInfo operation={operations} />
+                  <OperationInfo operation={operations} med_id={searchId} forceRerender={() => forceRerender("OperationInfo")} />
                 </section>
 
                 <section className="lg:w-9/12 md:w-10/12 sm:w-11/12 xs-width-full m-auto p-10 shadow-lg shadow-gray-300 rounded-xl">

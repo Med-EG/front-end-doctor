@@ -1,5 +1,5 @@
 import logo from "../assets/logo.svg";
-import logoIcon from "../assets/doctorslogo.svg";
+import logoIcon from "../assets/LogoIcon.svg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/DoctorRegisterServices";
@@ -12,9 +12,7 @@ function Login() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      window.location.href = "http://localhost:5174/";
-    } else {
-      // No token found, redirect to the login page
+      window.location.href = "http://localhost:5173/";
     }
   }, []);
 

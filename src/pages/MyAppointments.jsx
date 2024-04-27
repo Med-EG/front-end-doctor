@@ -1,7 +1,7 @@
 import AppointmentCard from "@/components/common/AppointmentCard";
 import Footer from "@/components/common/Footer";
 import Header from "@/components/common/Header";
-import { getAllAppointmentsForAPatient } from "@/services/homeServices";
+import { getAllAppointmentsForDoctor } from "@/services/homeServices";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import icon from "../assets/no_app.svg";
@@ -13,9 +13,10 @@ function MyAppointments() {
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    getAllAppointmentsForAPatient(id)
+    getAllAppointmentsForDoctor(id)
       .then((res) => {
         setAppointments(res.data);
+        console.log(res.data)
       })
       .catch((err) => {
         console.log(err);
@@ -30,13 +31,10 @@ function MyAppointments() {
           appointments.length!==0 ?
           appointments.map((appointment, index) => (
             <AppointmentCard
-              src={`https://api-medeg.online/${appointment?.doctor?.doctor_image}`}
-              doctorName={`${appointment?.doctor?.first_name} ${appointment?.doctor?.last_name}`}
-              location={`${appointment?.doctor?.city}, ${appointment?.doctor?.country}, ${appointment?.doctor?.street}`}
-              specialization={appointment?.doctor?.specialization}
+              src={`https://api-medeg.online/${appointment?.patient?.personal_image}`}
+              doctorName={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
               date={appointment?.appointment_day}
               time={appointment?.appointment_time}
-              price={appointment?.price}
             />
           ))
          : (

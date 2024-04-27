@@ -1,7 +1,7 @@
 import './App.css'
 import axios from 'axios';
 import { DateProvider } from "./context/DateContext";
-import React, { useEffect , useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 
@@ -22,13 +22,16 @@ import SecondDegreeEdit from "./pages/SecondDegreeEdit";
 import DoctorRegister from "./pages/DoctorRegister";
 import Login from "./pages/Login";
 import DoctorWorkingDays from "./pages/DoctorWorkingDays";
+import Chat from "./pages/Chat";
+import MyAppointments from "./pages/MyAppointments";
+import NotFound from "./pages/NotFound";
 
 
 function App() {
-  // let token = localStorage.getItem("token");
+  let token = localStorage.getItem("token");
 
   axios.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer 791|tzkiUPOtIawS5WixmVBf21wcDKfZOxNGOLQ4G6gX712fe421`;
+    config.headers.Authorization = `Bearer ${token}`;
     return config;
   });
   return (
@@ -36,14 +39,26 @@ function App() {
       <DateProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="/Appointments/:id" element={<MyAppointments />} />
+
+
+          {/* Login & Register */}
+          {/*======================================================================*/}
+
           <Route path="/signup" element={<DoctorRegister />} />
           <Route path="/login" element={<Login />} />
           <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
+
+          {/* Medical Record */}
+          {/*======================================================================*/}
+
           <Route path="/MedicalRecord" element={<MedicalRecord />} />
-          <Route path="/addDisease" element={<AddNewDisease />} />
+          {/* <Route path="/addDisease" element={<AddNewDisease />} />
           <Route path="/addMedicine" element={<AddNewMedicine />} />
           <Route path="/addAllergy" element={<AddNewAllergy />} />
-          <Route path="/addOperation" element={<AddNewOperation />} />
+          <Route path="/addOperation" element={<AddNewOperation />} /> */}
           <Route path="/FatherEdit" element={<FatherEdit />} />
           <Route path="/MotherEdit" element={<MotherEdit />} />
           <Route path="/SecondDegreeEdit" element={<SecondDegreeEdit />} />

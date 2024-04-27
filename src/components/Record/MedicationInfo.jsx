@@ -17,9 +17,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
+import AddNewMedicine from "@/pages/AddNewMedicine";
+import MedicationEditPage from "@/pages/MedicationEditPage";
 
-function MedicationInfo({ medications }) {
-  const navigate = useNavigate();
+function MedicationInfo({ medications , forceRerender ,med_id}) {
+
 
   // Function to handle deletion of medicine
   const handleDelete = (medicineId) => {
@@ -27,7 +29,7 @@ function MedicationInfo({ medications }) {
     deleteMedicine(medicineId)
       .then(() => {
         // Do something after successful deletion, e.g., update state or show a message
-        window.location.reload();
+        forceRerender();
       })
       .catch((error) => {
         // Handle error if deletion fails
@@ -35,11 +37,6 @@ function MedicationInfo({ medications }) {
       });
   };
 
-  // Function to handle navigation to the Edit page
-  const handleUpdate = (medicineId) => {
-    // Navigate to the Edit page with the allergy ID as a parameter
-    navigate(`/MedicineEdit/${medicineId}`);
-  };
 
   return (
     <>
@@ -47,14 +44,7 @@ function MedicationInfo({ medications }) {
         <h2 className="text-start font-bold gradient-text text-3xl">
           Medication Information :
         </h2>
-        <Link to={"/addMedicine"}>
-          <button>
-            <i
-              class="fa-solid fa-circle-plus fa-2x"
-              style={{ color: "#2d66c8" }}
-            ></i>
-          </button>
-        </Link>
+        <AddNewMedicine med_id={med_id} forceRerender={()=>forceRerender()}/>
       </div>
       <ul className="pt-4">
         {medications &&
@@ -74,9 +64,8 @@ function MedicationInfo({ medications }) {
                   frequency={item.frequency}
                 />
                 {/* Call handleUpdate function on button click */}
-                <button onClick={() => handleUpdate(item.id)}>
-                  <img src={Edit} alt="" className="w-1/8 aspect-square" />
-                </button>{" "}
+                <MedicationEditPage  med_id={med_id} item={item} forceRerender={()=>forceRerender()} />
+                
                 {/* Pass a function reference to onClick */}
                 <AlertDialog>
                   <AlertDialogTrigger>
@@ -103,7 +92,7 @@ function MedicationInfo({ medications }) {
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                        className={"bg-red-600"}
+                        className={"bg-red-600 py-3 px-5 rounded-xl primary-text-semibold text-white "}
                         onClick={() => handleDelete(item.id)}
                       >
                         continue

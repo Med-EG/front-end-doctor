@@ -40,7 +40,7 @@ function DoctorDetails() {
         });
     } else {
       // No token found, redirect to the login page
-      window.location.href = "http://localhost:5174/login";
+      window.location.href = "http://localhost:5173/login";
     }
   }, []);
   const fullName = `${doctor?.doctor?.first_name} ${doctor?.doctor?.last_name}`;

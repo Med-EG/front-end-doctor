@@ -13,11 +13,9 @@ import axios from "axios";
 //     },
 //   });
 // }
-// export async function getAllAppointmentsForAPatient(id) {
-//   return await axios.get(
-//     `https://api-medeg.online/api/medEG/appointments/patient/${id}`
-//   );
-// }
+export async function getAllAppointmentsForDoctor(id) {
+  return await axios.get(`https://api-medeg.online/api/medEG/appointments/doctor/${id}`);
+}
 
 // doctor
 // =========================================================================
@@ -52,9 +50,9 @@ export async function medicalRecordForPatient(id) {
 }
 
 //Chat
-export async function getAllChatsForOnePatient(id) {
+export async function getAllChatsForOneDoctor(id) {
   return await axios.get(
-    `https://api-medeg.online/api/medEG/chat/patient/${id}`
+    `https://api-medeg.online/api/medEG/chat/doctor/${id}`
   );
 }
 export async function getChatById(id) {

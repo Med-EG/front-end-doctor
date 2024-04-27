@@ -15,10 +15,10 @@ class Operation {
     return await axios.get("https://api-medeg.online/api/medEG/operation");
   }
 
-  async addOperationByPatient(name) {
+  async addOperationByPatient(name , med_id) {
     const postData = {
-      medical_record_id: this.medical_record_id,
-      doctor_id: null,
+      medical_record_id: med_id,
+      doctor_id: localStorage.getItem("id"),
       operation_name: name,
       surgeon_name: this.surgeon_name,
       operation_date: this.operation_date,

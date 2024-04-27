@@ -45,7 +45,7 @@ const Header = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("id");
         localStorage.removeItem("role");
-        window.location.href = "http://localhost:1573/login";
+        window.location.href = "http://localhost:5173/login";
       })
       .catch((e) => {
         console.log(e);
@@ -72,7 +72,7 @@ const Header = () => {
     },
     {
       label: "Appointments",
-      to: `/myAppointments/${localStorage.getItem("id")}`,
+      to: `/Appointments/${localStorage.getItem("id")}`,
     },
   ];
 
@@ -90,7 +90,6 @@ const Header = () => {
               className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
               aria-label="Preline"
             >
-              <img src={logo} alt="logo" className="w-40" />
               <img src={logo} alt="logo" className="w-40" />
             </Link>
             {/* End Logo */}

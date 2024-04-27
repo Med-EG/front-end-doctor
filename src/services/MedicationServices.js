@@ -15,10 +15,10 @@ class Medication {
     return await axios.get("https://api-medeg.online/api/medEG/medication");
   }
 
-  async addMedicineByPatient(name) {
+  async addMedicineByPatient(name,med_id) {
     const postData = {
-      medical_record_id: this.medical_record_id,
-      doctor_id: null,
+      medical_record_id: med_id,
+      doctor_id: localStorage.getItem("id"),
       medicine_name: name,
       dose: this.dose + " " + this.unit,
       frequency: this.frequency,
@@ -36,26 +36,7 @@ class Medication {
     );
   }
 
-  async addMedicineByDoctor(name) {
-    const postData = {
-      medical_record_id: this.medical_record_id,
-      doctor_id: this.doctor_id,
-      medicine_name: name,
-      dose: this.dose + " " + this.unit,
-      frequency: this.frequency,
-      notes: this.notes,
-    };
-
-    return await axios.post(
-      "https://api-medeg.online/api/medEG/medication-info",
-      postData,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-  }
+ 
 }
 
 export default Medication;

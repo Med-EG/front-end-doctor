@@ -16,8 +16,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-function AllergyInfo({ allergy }) {
-  const navigate = useNavigate();
+import { useEffect } from "react";
+import AddNewAllergy from "@/pages/AddNewAllergy";
+import AllergyEditPage from "@/pages/AllergyEditPage";
+function AllergyInfo({ allergy ,forceRerender ,med_id}) {
 
   // Function to handle deletion of allergy
   const handleDelete = (allergyId) => {
@@ -25,7 +27,8 @@ function AllergyInfo({ allergy }) {
     deleteAllergy(allergyId)
       .then(() => {
         // Optionally, you can navigate to another page after successful deletion
-        window.location.reload();
+        // window.location.reload();
+        forceRerender();
       })
       .catch((error) => {
         // Handle error if deletion fails
@@ -33,11 +36,6 @@ function AllergyInfo({ allergy }) {
       });
   };
 
-  // Function to handle navigation to the Edit page
-  const handleUpdate = (allergyId) => {
-    // Navigate to the Edit page with the allergy ID as a parameter
-    navigate(`/AllergyEdit/${allergyId}`);
-  };
 
   return (
     <>
@@ -45,14 +43,7 @@ function AllergyInfo({ allergy }) {
         <h2 className="text-start font-bold gradient-text text-3xl">
           Allergy Information :
         </h2>
-        <Link to={"/addAllergy"}>
-          <button>
-            <i
-              class="fa-solid fa-circle-plus fa-2x"
-              style={{ color: "#2d66c8" }}
-            ></i>
-          </button>
-        </Link>
+        <AddNewAllergy  med_id={med_id} forceRerender={()=>forceRerender()}/>
       </div>
       <ul className="pt-4">
         {allergy &&
@@ -72,9 +63,8 @@ function AllergyInfo({ allergy }) {
                   severityLevel={item.severity_level}
                 />
                 {/* Call handleUpdate function on button click */}
-                <button onClick={() => handleUpdate(item.id)}>
-                  <img src={Edit} alt="" className="w-1/8 aspect-square" />
-                </button>
+                <AllergyEditPage med_id={med_id} item={item} forceRerender={()=>forceRerender()} />
+
                 {/* Pass a function reference to onClick */}
                 <AlertDialog>
                   <AlertDialogTrigger>
@@ -101,7 +91,7 @@ function AllergyInfo({ allergy }) {
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                        className={"bg-red-600"}
+                        className={"bg-red-600 py-3 px-5 rounded-xl primary-text-semibold text-white "}
                         onClick={() => handleDelete(item.id)}
                       >
                         continue

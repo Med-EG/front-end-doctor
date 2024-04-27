@@ -16,9 +16,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
 import { deleteDisease } from "@/services/Record";
+import AddNewDisease from "@/pages/AddNewDisease";
+import DiseaseEditPage from "@/pages/DiseaseEditPage"; 
 
-function DiseaseInfo({ diseases }) {
-  const navigate = useNavigate();
+function DiseaseInfo({ diseases, forceRerender ,med_id }) {
+
 
   // Function to handle deletion of disease
   const handleDelete = (diseaseId) => {
@@ -26,7 +28,7 @@ function DiseaseInfo({ diseases }) {
     deleteDisease(diseaseId)
       .then(() => {
         // Optionally, you can navigate to another page after successful deletion
-        window.location.reload();
+        forceRerender();
       })
       .catch((error) => {
         // Handle error if deletion fails
@@ -34,11 +36,6 @@ function DiseaseInfo({ diseases }) {
       });
   };
 
-  // Function to handle navigation to the Edit page
-  const handleUpdate = (diseaseId) => {
-    // Navigate to the Edit page with the allergy ID as a parameter
-    navigate(`/DiseaseEdit/${diseaseId}`);
-  };
 
   return (
     <>
@@ -46,19 +43,14 @@ function DiseaseInfo({ diseases }) {
         <h2 className="text-start font-bold gradient-text text-3xl">
           Diseases Information :
         </h2>
-        <Link to={"/addDisease"}>
-          <button>
-            <i
-              class="fa-solid fa-circle-plus fa-2x"
-              style={{ color: "#2d66c8" }}
-            ></i>
-          </button>
-        </Link>
+        
+         <AddNewDisease med_id={med_id} forceRerender={()=>forceRerender()}/>
+        
       </div>
 
       <ul className="pt-4">
         {diseases &&
-          diseases?.map((item, index) => (
+          diseases.map((item, index) => (
             <li key={index} className="flex justify-between items-center py-1">
               <div>
                 <h2 className="font-bold gradient-text text-xl">
@@ -72,13 +64,11 @@ function DiseaseInfo({ diseases }) {
                   notes={item.notes}
                 />
                 {/* Call handleUpdate function on button click */}
-                <button onClick={() => handleUpdate(item.id)}>
-                  <img src={Edit} alt="" className="w-1/8 aspect-square" />
-                </button>{" "}
+                <DiseaseEditPage med_id={med_id} item={item} forceRerender={()=>forceRerender()}/>
                 {/* Pass a function reference to onClick */}
                 <AlertDialog>
                   <AlertDialogTrigger>
-                    <button>
+                    <button disabled={!(item.doctor_id==localStorage.getItem("id"))}  className={`${item.doctor_id==localStorage.getItem("id")?`opacity-100`:`opacity-50 cursor-not-allowed`}`}>
                       <img
                         src={Delete}
                         alt=""
@@ -98,9 +88,11 @@ function DiseaseInfo({ diseases }) {
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogCancel
+                      className="p-3 rounded-lg shadow-sm shadow-gray-400"
+                      >Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                        className={"bg-red-600"}
+                        className={"bg-red-600 p-3 rounded-lg text-white primary-text-bold"}
                         onClick={() => handleDelete(item.id)}
                       >
                         continue
