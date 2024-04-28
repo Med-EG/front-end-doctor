@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { getAllergyById, updateAllergy } from "@/services/Record";
 import { getAllAllergiesInDB } from "@/services/AllergyInfo";
 import MyCombobox from "@/components/common/ComboBox";
-import useRequireAuth from "@/custom hooks/useRequireAuth";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi"; // Import the check and x circle icons
 import Notification from "@/components/common/Notification";
-import Header from "@/components/common/Header";
+import Edit from "../assets/Edit.svg";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
-function AllergyEditPage() {
-  useRequireAuth();
-  const { id } = useParams();
-  const navigate = useNavigate();
+
+function AllergyEditPage({ item, med_id, forceRerender }) {
   const [name, setName] = useState("");
   const [allAllergies, setAllAllergies] = useState([]);
   const [allergyInfo, setAllergyInfo] = useState({
-    medical_record_id: localStorage.getItem("med_id"),
+    medical_record_id: med_id,
     allergy_name: "",
     allergy_type: "",
     severity_level: "",
@@ -24,10 +31,10 @@ function AllergyEditPage() {
   });
 
   useEffect(() => {
-    getAllergyById(id).then((response) => {
+    getAllergyById(item.id).then((response) => {
       setAllergyInfo(response.data);
     });
-  }, [id]);
+  }, [item.id]);
 
   useEffect(() => {
     getAllAllergiesInDB()
@@ -76,10 +83,9 @@ function AllergyEditPage() {
         ...allergyInfo,
         allergy_name: name,
       };
-      await updateAllergy(id, updatedAllergyInfo);
-      console.log("Allergy updated successfully!");
-      // Show success notification with the success icon
+      await updateAllergy(item.id, updatedAllergyInfo);
       handleShowNotification("Allergy updated successfully!", true);
+      forceRerender();
     } catch (error) {
       console.error("Error updating allergy:", error.response.data.error);
       // Extract error messages for specific fields, if available
@@ -108,60 +114,81 @@ function AllergyEditPage() {
 
   return (
     <>
-    <Header/>
-    <div className="text-center lg:w-10/12 md:w-11/12 sm:w-full xs-width-full flex justify-center items-center m-auto">
-      <form onSubmit={handleSubmit} className="w-full p-10">
-        <div className="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
-          <h2 className="font-bold text-5xl gradient-text text-start py-5">
-            Allergy Information
-          </h2>
-          <div className="mt-2 space-y-3">
-            {/* Input fields pre-filled with allergy data */}
 
-            <MyCombobox
-              options={allAllergies}
-              setName={handleNameChange} // Pass handleNameChange function
-              placeholder={"Allergy Name"}
-            />
-            <input
-              type="text"
-              className="allergy_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-              placeholder="severity level"
-              id="severity_level"
-              name="severity_level"
-              value={allergyInfo.severity_level}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="allergy_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-              placeholder="Allergy type"
-              id="allergy_type"
-              name="allergy_type"
-              value={allergyInfo.allergy_type}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              className="allergy_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-              placeholder="body response"
-              id="body_response"
-              name="body_response"
-              value={allergyInfo.body_response}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
-        <div className="text-center">
-          <button
-            type="submit"
-            className="py-3 px-4 w-full inline-flex items-center justify-center mt-9 gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-          >
-            Update
+      <AlertDialog>
+        <AlertDialogTrigger>
+          <button disabled={!(item.doctor_id == localStorage.getItem("id"))} className={`${item.doctor_id == localStorage.getItem("id") ? `opacity-100` : `opacity-50 cursor-not-allowed`}`}>
+            <img src={Edit} alt="" className="w-1/8 aspect-square" />
           </button>
-        </div>
-      </form>
-    </div>
+        </AlertDialogTrigger>
+        <AlertDialogContent className="w-3/4 p-5">
+          <AlertDialogHeader>
+            <AlertDialogDescription>
+              <div className="text-center w-full flex justify-center items-center m-auto">
+                <form onSubmit={handleSubmit} className="w-full">
+                  <div className="py-6 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
+                    <h2 className="font-bold text-5xl gradient-text text-start py-5">
+                      Allergy Information
+                    </h2>
+                    <div className="mt-2 space-y-3">
+                      {/* Input fields pre-filled with allergy data */}
+
+                      <MyCombobox
+                        options={allAllergies}
+                        setName={handleNameChange} // Pass handleNameChange function
+                        placeholder={"Allergy Name"}
+                      />
+                      <input
+                        type="text"
+                        className="allergy_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+                        placeholder="severity level"
+                        id="severity_level"
+                        name="severity_level"
+                        value={allergyInfo.severity_level}
+                        onChange={handleChange}
+                      />
+                      <input
+                        type="text"
+                        className="allergy_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+                        placeholder="Allergy type"
+                        id="allergy_type"
+                        name="allergy_type"
+                        value={allergyInfo.allergy_type}
+                        onChange={handleChange}
+                      />
+                      <input
+                        type="text"
+                        className="allergy_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
+                        placeholder="body response"
+                        id="body_response"
+                        name="body_response"
+                        value={allergyInfo.body_response}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      className="py-3 px-4 w-full inline-flex items-center justify-center mt-9 gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              className="py-3 px-5 w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400"
+            >Finish</AlertDialogCancel>
+
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+
     </>
   );
 }

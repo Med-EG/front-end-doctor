@@ -1,33 +1,32 @@
 import axios from "axios";
-// patient
-export async function getAllPatients() {
-  return await axios.get("https://api-medeg.online/api/medEG/patients");
+// // patient
+// export async function getAllPatients() {
+//   return await axios.get("https://api-medeg.online/api/medEG/patients");
+// }
+// export async function getPatientById(id) {
+//   return await axios.get(`https://api-medeg.online/api/medEG/patients/${id}`);
+// }
+// export async function patientLogout(token) {
+//   return await axios.post(`https://api-medeg.online/api/medEG/patient/logout`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+// }
+export async function getAllAppointmentsForDoctor(id) {
+  return await axios.get(`https://api-medeg.online/api/medEG/appointments/doctor/${id}`);
 }
-export async function getPatientById(id) {
-  return await axios.get(`https://api-medeg.online/api/medEG/patients/${id}`);
-}
-export async function patientLogout(token) {
-  return await axios.post(`https://api-medeg.online/api/medEG/patient/logout`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-}
-export async function getAllAppointmentsForAPatient(id) {
-  return await axios.get(
-    `https://api-medeg.online/api/medEG/appointments/patient/${id}`
-  );
-}
-//doctor
+
+// doctor
+// =========================================================================
 export async function getAllDoctors() {
   return await axios.get("https://api-medeg.online/api/medEG/doctor");
 }
 export async function getDoctorByID(id) {
-  return await axios.get(`https://api-medeg.online/api/medEG/doctor/${id}`, {
-    headers: {
-      Authorization: `Bearer 609|ideMWOgvhgCNZsq7FSEusLvfokpTDUuxJHc1Evy7eaa870b6`,
-    },
-  });
+  return await axios.get(`https://api-medeg.online/api/medEG/doctor/${id}`);
+}
+export async function doctorLogout() {
+  return await axios.post(`https://api-medeg.online/api/medEG/doctor/logout`);
 }
 export async function getDoctorContactNumbers(id) {
   return await axios.get(
@@ -51,9 +50,9 @@ export async function medicalRecordForPatient(id) {
 }
 
 //Chat
-export async function getAllChatsForOnePatient(id) {
+export async function getAllChatsForOneDoctor(id) {
   return await axios.get(
-    `https://api-medeg.online/api/medEG/chat/patient/${id}`
+    `https://api-medeg.online/api/medEG/chat/doctor/${id}`
   );
 }
 export async function getChatById(id) {

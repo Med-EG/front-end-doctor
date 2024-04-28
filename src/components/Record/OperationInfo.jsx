@@ -13,14 +13,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog"; 
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { deleteOperation } from "@/services/Record";
 import { Link } from "react-router-dom";
+import AddNewOperation from "@/pages/AddNewOperation";
+import OperationEditPage from "@/pages/OperationEditPage";
 
-function OperationInfo({ operation }) {
-  const navigate = useNavigate();
+function OperationInfo({ operation , forceRerender ,med_id}) {
 
   // Function to handle deletion of operation
   const handleDelete = (operationId) => {
@@ -28,17 +29,13 @@ function OperationInfo({ operation }) {
     deleteOperation(operationId)
       .then(() => {
         // Optionally, you can navigate to another page after successful deletion
-        window.location.reload();
+        // window.location.reload();
+        forceRerender();
       })
       .catch((error) => {
         // Handle error if deletion fails
         console.error("Error deleting operation:", error);
       });
-  };
-  // Function to handle navigation to the Edit page
-  const handleUpdate = (allergyId) => {
-    // Navigate to the Edit page with the allergy ID as a parameter
-    navigate(`/OperationEdit/${allergyId}`);
   };
 
   return (
@@ -47,14 +44,7 @@ function OperationInfo({ operation }) {
         <h2 className="text-start font-bold gradient-text text-3xl">
           Operation Information :
         </h2>
-        <Link to={"/addOperation"}>
-          <button>
-            <i
-              class="fa-solid fa-circle-plus fa-2x"
-              style={{ color: "#2d66c8" }}
-            ></i>
-          </button>
-        </Link>
+        <AddNewOperation med_id={med_id} forceRerender={()=>forceRerender()}/>
       </div>
       <ul className="pt-4">
         {operation &&
@@ -75,9 +65,8 @@ function OperationInfo({ operation }) {
                   notes={item.operation_notes}
                 />
                 {/* Call handleUpdate function on button click */}
-                <button onClick={() => handleUpdate(item.id)}>
-                  <img src={Edit} alt="" className="w-1/8 aspect-square" />
-                </button>{" "}
+                <OperationEditPage med_id={med_id} item={item} forceRerender={()=>forceRerender()} />
+
                 {/* Pass a function reference to onClick */}
                 <AlertDialog>
                   <AlertDialogTrigger>
@@ -106,7 +95,7 @@ function OperationInfo({ operation }) {
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
                       <AlertDialogAction
-                        className={"bg-red-600"}
+                        className={"bg-red-600 py-3 px-5 rounded-xl primary-text-semibold text-white "}
                         onClick={() => handleDelete(item.id)}
                       >
                         continue

@@ -6,8 +6,16 @@ import profilePicture from "../assets/profile-circled-svgrepo-com.svg";
 import Notification from "@/components/common/Notification";
 import toast, { Toaster } from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi"; // Import the check and x circle icons
-
+import { useEffect } from "react";
 function DoctorRegister() {
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      window.location.href = "http://localhost:5173/";
+    } else {
+      // No token found, redirect to the login page
+    }
+  }, []);
   const navigate = useNavigate();
   const [state, setstate] = useState("");
   const [passwordError, setPasswordError] = useState("");

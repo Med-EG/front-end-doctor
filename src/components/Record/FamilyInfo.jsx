@@ -2,18 +2,11 @@ import Edit from "../../assets/Edit.svg";
 import Delete from "../../assets/Delete.svg";
 import FamilyModal from "../common/FamilyModal";
 import { useNavigate } from "react-router-dom";
+import FatherEdit from "@/pages/FatherEdit";
 
 function FamilyInfo({ father, mother, second }) {
   const navigate = useNavigate();
-  const handleUpdate1 = () => {
-    navigate(`/FatherEdit`);
-  };
-  const handleUpdate2 = () => {
-    navigate(`/MotherEdit`);
-  };
-  const handleUpdate3 = () => {
-    navigate(`/SecondDegreeEdit`);
-  };
+  
   return (
     <>
       <h2 className="text-start font-bold gradient-text text-3xl">
@@ -31,11 +24,8 @@ function FamilyInfo({ father, mother, second }) {
                   title="Father's Info."
                   itemDiseases={father}
                   itemTitle="Father's Diseases"
-                />{" "}
-                {/* Call handleUpdate function on button click */}
-                <button onClick={() => handleUpdate1()}>
-                  <img src={Edit} alt="" className="w-1/8 aspect-square" />
-                </button>{" "}
+                />
+                
               </div>
             </li>
           </>
@@ -51,11 +41,7 @@ function FamilyInfo({ father, mother, second }) {
                   title="Mother's Info."
                   itemDiseases={mother}
                   itemTitle="Mother's Diseases"
-                />{" "}
-                {/* Call handleUpdate function on button click */}
-                <button onClick={() => handleUpdate2()}>
-                  <img src={Edit} alt="" className="w-1/8 aspect-square" />
-                </button>{" "}
+                />
               </div>
             </li>
           </>
@@ -73,14 +59,7 @@ function FamilyInfo({ father, mother, second }) {
                   title="Second Dergee's Info."
                   itemDiseases={second}
                   itemTitle="Second Dergee's  Diseases"
-                />{" "}
-                {/* Call handleUpdate function on button click */}
-                <button onClick={() => handleUpdate3()}>
-                  <img src={Edit} alt="" className="w-1/8 aspect-square" />
-                </button>{" "}
-                {/* <button onClick={handleClick}> */}{" "}
-
-                {/* </button>{" "} */}
+                />
               </div>
             </li>
           </>

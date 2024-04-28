@@ -18,7 +18,7 @@ function DiseaseModal({ title, itemName, notes }) {
         <AlertDialogTrigger>
           <img src={Read} alt="" />
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="p-10 ">
           <AlertDialogHeader>
             <h1 className="gradient-text primary-text-extrabold text-3xl text-center">
               {title}
@@ -38,8 +38,8 @@ function DiseaseModal({ title, itemName, notes }) {
             {notes}
           </h2>
           <AlertDialogFooter>
-            <AlertDialogCancel>
-              <span className="text-red-500 text-lg">exit</span>
+            <AlertDialogCancel className="py-3 px-5 shadow-sm shadow-slate-400 rounded-xl primary-text-semibold">
+              <span className="text-red-500 text-lg">Exit</span>
             </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>

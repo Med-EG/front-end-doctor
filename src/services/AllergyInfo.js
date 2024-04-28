@@ -14,10 +14,10 @@ class Allergy {
     return await axios.get("https://api-medeg.online/api/medEG/allergy");
   }
 
-  async addAllergyByPatient(name) {
+  async addAllergyByPatient(name, med_id) {
     const postData = {
-      medical_record_id: this.medical_record_id,
-      doctor_id: null,
+      medical_record_id: med_id,
+      doctor_id: localStorage.getItem("id"),
       allergy_name: name,
       allergy_type: this.allergy_type,
       severity_level: this.severity_level,
@@ -35,26 +35,7 @@ class Allergy {
     );
   }
 
-  async addAllergyByDoctor() {
-    const postData = {
-      medical_record_id: this.medical_record_id,
-      doctor_id: this.doctor_id,
-      allergy_name: this.allergy_name,
-      allergy_type: this.allergy_type,
-      severity_level: this.severity_level,
-      body_response: this.body_response,
-    };
-
-    return await axios.post(
-      "https://api-medeg.online/api/medEG/allergy-info",
-      postData,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-  }
+  
 }
 
 export default Allergy;
