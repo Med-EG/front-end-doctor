@@ -22,6 +22,9 @@ import SecondDegreeEdit from "./pages/SecondDegreeEdit";
 import DoctorRegister from "./pages/DoctorRegister";
 import Login from "./pages/Login";
 import DoctorWorkingDays from "./pages/DoctorWorkingDays";
+import DoctorWorkingHours from "./pages/DoctorWorkingHours";
+import AllWorkingDaysAndHours from "./pages/AllWorkingDaysAndHours";
+import ShowDayDetails from "./pages/ShowDayDetails";
 import Chat from "./pages/Chat";
 import MyAppointments from "./pages/MyAppointments";
 import NotFound from "./pages/NotFound";
@@ -50,6 +53,9 @@ function App() {
           <Route path="/signup" element={<DoctorRegister />} />
           <Route path="/login" element={<Login />} />
           <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
+          <Route path="/setWorkingHours" element={<DoctorWorkingHours />} />
+        <Route path="/allWorkingDays" element={<AllWorkingDaysAndHours />} />
+        <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
 
           {/* Medical Record */}
           {/*======================================================================*/}
