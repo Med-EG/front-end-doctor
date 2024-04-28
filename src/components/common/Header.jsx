@@ -23,7 +23,7 @@ const Header = () => {
 
 
   useEffect(() => {
-    getDoctorByID(10)
+    getDoctorByID(localStorage.getItem("id"))
       .then((res) => {
         setProfileInfo(res.data);
         console.log(res.data);

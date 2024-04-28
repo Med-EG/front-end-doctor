@@ -3,7 +3,7 @@ import {
   getAllWorkingDaysForADoctor,
   setWorkingHours,
 } from "../services/DoctorRegisterServices";
-import MyCombobox from "../components/common/ComboBox";
+import MyCombobox from "../components/common/ComboBox2";
 import Footer from "../components/common/Footer";
 import Notification from "@/components/common/Notification";
 import toast, { Toaster } from "react-hot-toast";
