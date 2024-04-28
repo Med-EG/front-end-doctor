@@ -121,3 +121,13 @@ export async function getAllWorkingDaysForADoctor() {
     )}`
   );
 }
+export async function getAllWorkingHoursForADoctor() {
+  return axios.get(
+    `https://api-medeg.online/api/medEG/hour/doctor/${localStorage.getItem(
+      "id"
+    )}`
+  );
+}
+export async function getWorkingHoursByDay($id) {
+  return axios.get(`https://api-medeg.online/api/medEG/hour/day/${$id}`);
+}
