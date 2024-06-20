@@ -7,6 +7,9 @@ import Notification from "@/components/common/Notification";
 import toast, { Toaster } from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi"; // Import the check and x circle icons
 import { useEffect } from "react";
+import jsonData from "../DB/governorates.json";
+import { allSpecializations } from "@/services/doctors";
+
 function DoctorRegister() {
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -40,6 +43,12 @@ function DoctorRegister() {
     rating: "",
     years_of_experience: "",
   });
+
+  const [specializations, setspecialization] = useState([]);
+  useEffect(() => {
+    allSpecializations()
+      .then(response => setspecialization(response.data))
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -281,16 +290,21 @@ function DoctorRegister() {
                       Gender
                     </label>
                   </div>
-                  <div className="relative">
-                    <input
-                      type="text"
+                  <div className="relative w-full">
+                    <select
+                      defaultValue={null}
                       id="specialization"
                       name="specialization"
                       className="peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
                       placeholder=""
                       value={formData.specialization}
                       onChange={handleChange}
-                    />
+                    >
+                      <option >{null}</option>
+                      {specializations.specializations && specializations.specializations.map((item, index) => (
+                        <option key={index}>{item}</option>
+                      ))}
+                    </select>
                     <label
                       htmlFor="specialization"
                       className="gradient-text absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
@@ -300,7 +314,7 @@ function DoctorRegister() {
                   </div>
                 </div>
                 <div className="grid sm:flex gap-3">
-                  <div className="relative">
+                  <div className="relative w-full">
                     <input
                       type="text"
                       id="education"
@@ -317,7 +331,7 @@ function DoctorRegister() {
                       Education
                     </label>
                   </div>
-                  <div className="relative">
+                  <div className="relative w-full">
                     <input
                       type="text"
                       id="years_of_experience"
@@ -336,7 +350,7 @@ function DoctorRegister() {
                   </div>
                 </div>
                 <div className="grid sm:flex gap-3">
-                  <div className="relative">
+                  <div className="relative  w-full">
                     <input
                       type="text"
                       id="country"
@@ -353,16 +367,20 @@ function DoctorRegister() {
                       Country
                     </label>
                   </div>
-                  <div className="relative">
-                    <input
-                      type="text"
+                  <div className="relative w-full">
+                    <select
+                      defaultValue={null}
                       id="city"
                       name="city"
                       className="peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-                      placeholder=""
                       value={formData.city}
                       onChange={handleChange}
-                    />
+                    >
+                      <option >{null}</option>
+                      {jsonData.data && jsonData.data.map((item, index) => (
+                        <option key={index}>{item.governorate_name_en}</option>
+                      ))}
+                    </select>
                     <label
                       htmlFor="city"
                       className="gradient-text absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
@@ -371,7 +389,7 @@ function DoctorRegister() {
                     </label>
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative w-full">
                   <input
                     type="text"
                     id="street"
@@ -388,25 +406,8 @@ function DoctorRegister() {
                     Street
                   </label>
                 </div>
-                <div className="relative">
-                  <input
-                    type="text"
-                    id="rating"
-                    name="rating"
-                    className="peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
-                    placeholder=""
-                    value={formData.rating}
-                    onChange={handleChange}
-                  />
-                  <label
-                    htmlFor="rating"
-                    className="gradient-text absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none peer-focus:text-xs peer-focus:-translate-y-1.5 peer-focus:text-gray-500 peer-[:not(:placeholder-shown)]:text-xs peer-[:not(:placeholder-shown)]:-translate-y-1.5 peer-[:not(:placeholder-shown)]:text-gray-500"
-                  >
-                    rating{" "}
-                  </label>
-                </div>
                 <div className="grid sm:flex gap-3">
-                  <div className="relative">
+                  <div className="relative w-full">
                     <input
                       type="text"
                       id="price"
@@ -423,7 +424,7 @@ function DoctorRegister() {
                       Price
                     </label>
                   </div>
-                  <div className="relative">
+                  <div className="relative w-full">
                     <input
                       type="text"
                       id="scientific_degree"

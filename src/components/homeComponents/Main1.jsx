@@ -8,7 +8,7 @@ function Main1() {
   const button = "Show Appointment";
 
   function handleClick() {
-    navigate("/doctors");
+    navigate(`/Appointments/${localStorage.getItem("id")}`);
   }
   return (
     <>
