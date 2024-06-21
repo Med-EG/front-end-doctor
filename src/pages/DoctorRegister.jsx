@@ -40,7 +40,7 @@ function DoctorRegister() {
     scientific_degree: "",
     doctor_image: "",
     price: "",
-    rating: "",
+    rating: "0",
     years_of_experience: "",
   });
 
