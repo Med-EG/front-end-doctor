@@ -17,7 +17,6 @@ import Notification from "@/components/common/Notification";
 import toast, { Toaster } from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 function AddNewOperation({ med_id, forceRerender }) {
-
   const [allOperation, setAllOperation] = useState([]);
   const [operationInfo, setOperationInfo] = useState(new Operation());
   const [name, setName] = useState("");
@@ -28,10 +27,10 @@ function AddNewOperation({ med_id, forceRerender }) {
       .then((response) => setAllOperation(response.data));
   }, []);
 
-
   const handlesubmit = (e) => {
     e.preventDefault();
-    operationInfo.addOperationByPatient(name, med_id)
+    operationInfo
+      .addOperationByPatient(name, med_id)
       .then(() => {
         handleShowNotification("Operation Added successfully!", true);
         forceRerender();
@@ -43,7 +42,6 @@ function AddNewOperation({ med_id, forceRerender }) {
       inputs[i].value = "";
     }
   };
-
 
   const handleShowNotification = (message, isSuccess) => {
     const iconColor = isSuccess ? "text-green-500" : "text-red-500"; // Define colors for success and error icons
@@ -81,25 +79,26 @@ function AddNewOperation({ med_id, forceRerender }) {
           <AlertDialogHeader>
             <AlertDialogDescription>
               <section className="w-full h-full">
-
                 {/* The Form  */}
                 {/* ============================ */}
                 <div className="text-center w-full flex justify-center items-center m-auto">
                   <form className="w-full">
                     <div className="py-6 first:pt-0 last:pb-0 w-full m-auto first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
-                      <h2 className="font-bold text-5xl gradient-text text-start py-5">Operation Information</h2>
+                      <h2 className="font-bold text-5xl gradient-text text-start py-5">
+                        Operation Information
+                      </h2>
                       <div className="mt-2 space-y-3">
-
                         {/* Disease name */}
                         {/* =========================================================== */}
                         <div className="grid sm:flex gap-3">
-
-
                           <div className="relative w-full">
-                            <MyCombobox options={allOperation} setName={setName} placeholder={"Operation Name"} />
+                            <MyCombobox
+                              options={allOperation}
+                              setName={setName}
+                              placeholder={"Operation Name"}
+                            />
                           </div>
                         </div>
-
 
                         {/* Disease name */}
                         {/* =========================================================== */}
@@ -177,14 +176,12 @@ function AddNewOperation({ med_id, forceRerender }) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400"
-            >Finish</AlertDialogCancel>
-
+            <AlertDialogCancel className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400">
+              Finish
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
     </>
   );
 }
