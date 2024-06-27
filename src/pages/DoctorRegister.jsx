@@ -2,7 +2,7 @@ import { useState } from "react";
 import { setNewDoctor } from "@/services/DoctorRegisterServices";
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
-import profilePicture from "../assets/profile-circled-svgrepo-com.svg";
+import profilePicture from "../assets/userIcon.png";
 import Notification from "@/components/common/Notification";
 import toast, { Toaster } from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi"; // Import the check and x circle icons
@@ -123,10 +123,30 @@ function DoctorRegister() {
         () => navigate("/setWorkingDays") // Navigate to the working days page if successful
       );
     } catch (error) {
-      console.error(error);
-      handleShowNotification("Error Creating Doctor", false);
+      const extractedErrorMessages = [];
+    
+        // Iterate over the errors object to extract each error message
+        for (const field in error.response.data.error) {
+            if (error.response.data.error.hasOwnProperty(field)) {
+                // Get the array of error messages for the current field
+                const fieldErrors = error.response.data.error[field];
+    
+                // Add each error message to the extractedErrorMessages array
+                fieldErrors.forEach((errorMessage) => {
+                    extractedErrorMessages.push(errorMessage);
+                });
+            }
+        }
+    
+        // Update the errorMessages state variable with the extracted error messages
+        setErrorMessages(extractedErrorMessages);
+    
+        // Now, after saving all error messages, show the notification
+        handleShowNotification(extractedErrorMessages, false);
     }
   };
+
+  
 
   return (
     <>
@@ -280,6 +300,7 @@ function DoctorRegister() {
                       onChange={handleChange}
                       required
                     >
+                      <option >{null}</option>
                       <option>Male</option>
                       <option>Female</option>
                     </select>

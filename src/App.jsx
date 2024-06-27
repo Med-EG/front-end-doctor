@@ -28,6 +28,7 @@ import ShowDayDetails from "./pages/ShowDayDetails";
 import Chat from "./pages/Chat";
 import MyAppointments from "./pages/MyAppointments";
 import NotFound from "./pages/NotFound";
+import UpdateProfile from './pages/updateProfile';
 
 
 function App() {
@@ -54,9 +55,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
           <Route path="/setWorkingHours" element={<DoctorWorkingHours />} />
-        <Route path="/allWorkingDays" element={<AllWorkingDaysAndHours />} />
-        <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
-
+          <Route path="/allWorkingDays" element={<AllWorkingDaysAndHours />} />
+          <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
+          <Route path='/updateProfile' element={<UpdateProfile/>}/>
           {/* Medical Record */}
           {/*======================================================================*/}
 
