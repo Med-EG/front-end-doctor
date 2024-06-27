@@ -17,7 +17,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 
 function AddNewAllergy({ med_id, forceRerender }) {
-
   const [allAllergy, setAllAllergy] = useState([]);
   const [allergyInfo, setAllergyInfo] = useState(new Allergy());
   const [name, setName] = useState("");
@@ -28,10 +27,10 @@ function AddNewAllergy({ med_id, forceRerender }) {
       .then((response) => setAllAllergy(response.data));
   }, []);
 
-
   const handlesubmit = (e) => {
     e.preventDefault();
-    allergyInfo.addAllergyByPatient(name, med_id)
+    allergyInfo
+      .addAllergyByPatient(name, med_id)
       .then(() => {
         handleShowNotification("Medicine Added successfully!", true);
         forceRerender();
@@ -67,7 +66,6 @@ function AddNewAllergy({ med_id, forceRerender }) {
 
   return (
     <>
-
       <AlertDialog>
         <AlertDialogTrigger>
           <button>
@@ -81,7 +79,6 @@ function AddNewAllergy({ med_id, forceRerender }) {
           <AlertDialogHeader>
             <AlertDialogDescription>
               <section className="w-full h-full">
-
                 {/* The Form  */}
                 {/* ============================ */}
                 <div className="text-center w-full flex justify-center items-center m-auto">
@@ -94,9 +91,12 @@ function AddNewAllergy({ med_id, forceRerender }) {
                         {/* Disease name */}
                         {/* =========================================================== */}
                         <div className="grid sm:flex gap-3">
-
                           <div className="relative w-full">
-                            <MyCombobox options={allAllergy} setName={setName} placeholder={"Allergy Name"} />
+                            <MyCombobox
+                              options={allAllergy}
+                              setName={setName}
+                              placeholder={"Allergy Name"}
+                            />
                           </div>
                         </div>
 
@@ -181,15 +181,12 @@ function AddNewAllergy({ med_id, forceRerender }) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400"
-            >Finish</AlertDialogCancel>
-
+            <AlertDialogCancel className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400">
+              Finish
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-
     </>
   );
 }

@@ -128,6 +128,43 @@ export async function getAllWorkingHoursForADoctor() {
     )}`
   );
 }
-export async function getWorkingHoursByDay($id) {
-  return axios.get(`https://api-medeg.online/api/medEG/hour/day/${$id}`);
+export async function getWorkingHoursByDay(id) {
+  return axios.get(`https://api-medeg.online/api/medEG/hour/day/${id}`);
+}
+export async function deleteWorkingDay(id) {
+  return axios.delete(`https://api-medeg.online/api/medEG/day/${id}`);
+}
+export async function updateProfile(ProfileData) {
+  const {
+    doctor_id,
+    email,
+    country,
+    city,
+    street,
+    scientific_degree,
+    price,
+    years_of_experience,
+  } = ProfileData;
+  const postData = {
+    doctor_id: doctor_id,
+    email: email,
+    country: country,
+    city: city,
+    street: street,
+    scientific_degree: scientific_degree,
+    price: price,
+    years_of_experience: years_of_experience,
+  };
+
+  try {
+    const response = await axios.put(
+      `https://api-medeg.online/api/medEG/doctor/${ProfileData.doctor_id}
+      )}`,
+      postData
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    throw error;
+  }
 }

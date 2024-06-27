@@ -18,7 +18,6 @@ import toast, { Toaster } from "react-hot-toast";
 import { HiCheckCircle, HiXCircle } from "react-icons/hi";
 
 function AddNewMedicine({ med_id, forceRerender }) {
-
   const [medicineInfo, setMedicineInfo] = useState(new Medication());
   const [allMedicines, setAllMedicine] = useState([]);
   const [name, setName] = useState("");
@@ -29,12 +28,11 @@ function AddNewMedicine({ med_id, forceRerender }) {
       .then((response) => setAllMedicine(response.data));
   }, []);
 
-
-
   const handlesubmit = (e) => {
     e.preventDefault();
 
-    medicineInfo.addMedicineByPatient(name, med_id)
+    medicineInfo
+      .addMedicineByPatient(name, med_id)
       .then(() => {
         handleShowNotification("Medicine Added successfully!", true);
         forceRerender();
@@ -44,7 +42,7 @@ function AddNewMedicine({ med_id, forceRerender }) {
     for (var i = 0; i < inputs.length; i++) {
       inputs[i].value = "";
     }
-  }
+  };
 
   const handleShowNotification = (message, isSuccess) => {
     const iconColor = isSuccess ? "text-green-500" : "text-red-500"; // Define colors for success and error icons
@@ -81,24 +79,26 @@ function AddNewMedicine({ med_id, forceRerender }) {
           <AlertDialogHeader>
             <AlertDialogDescription>
               <section className="w-full h-full ">
-
                 {/* The Form  */}
                 {/* ============================ */}
                 <div className="text-center w-full flex justify-center items-center m-auto">
                   <form className="w-full">
                     <div className="py-6 first:pt-0 last:pb-0 w-full xs-width-full m-auto first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
-                      <h2 className="font-bold text-5xl gradient-text text-start py-5">Medication Information</h2>
+                      <h2 className="font-bold text-5xl gradient-text text-start py-5">
+                        Medication Information
+                      </h2>
                       <div className="mt-2 space-y-3">
-
                         {/* Disease name */}
                         {/* =========================================================== */}
                         <div className="grid sm:flex gap-3">
-
                           <div className="w-full">
-                            <MyCombobox options={allMedicines} setName={setName} placeholder={"Medication Name"} />
+                            <MyCombobox
+                              options={allMedicines}
+                              setName={setName}
+                              placeholder={"Medication Name"}
+                            />
                           </div>
                         </div>
-
 
                         {/* Disease name */}
                         {/* =========================================================== */}
@@ -109,7 +109,9 @@ function AddNewMedicine({ med_id, forceRerender }) {
                               id="hs-floating-input-name"
                               className="medicine_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-md text-blue-900 placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
                               placeholder=""
-                              onChange={(e) => (medicineInfo.dose = e.target.value)}
+                              onChange={(e) =>
+                                (medicineInfo.dose = e.target.value)
+                              }
                             />
                             <label
                               htmlFor="hs-floating-input-name"
@@ -125,7 +127,9 @@ function AddNewMedicine({ med_id, forceRerender }) {
                               <select
                                 className="medicine_info peer p-4 pe-9 block w-full border-blue-300 border-2 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
                                 defaultValue={"--"}
-                                onChange={(e) => (medicineInfo.unit = e.target.value)}
+                                onChange={(e) =>
+                                  (medicineInfo.unit = e.target.value)
+                                }
                               >
                                 <option>--</option>
                                 <option>ml</option>
@@ -179,15 +183,12 @@ function AddNewMedicine({ med_id, forceRerender }) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400"
-            >Finish</AlertDialogCancel>
-
+            <AlertDialogCancel className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400">
+              Finish
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
-
     </>
   );
 }

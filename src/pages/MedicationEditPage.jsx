@@ -124,7 +124,14 @@ function MedicationEditPage({ item, med_id, forceRerender }) {
     <>
       <AlertDialog>
         <AlertDialogTrigger>
-          <button disabled={!(item.doctor_id == localStorage.getItem("id"))} className={`${item.doctor_id == localStorage.getItem("id") ? `opacity-100` : `opacity-50 cursor-not-allowed`}`}>
+          <button
+            disabled={!(item.doctor_id == localStorage.getItem("id"))}
+            className={`${
+              item.doctor_id == localStorage.getItem("id")
+                ? `opacity-100`
+                : `opacity-50 cursor-not-allowed`
+            }`}
+          >
             <img src={Edit} alt="" className="w-1/8 aspect-square" />
           </button>
         </AlertDialogTrigger>
@@ -188,14 +195,12 @@ function MedicationEditPage({ item, med_id, forceRerender }) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400"
-            >Finish</AlertDialogCancel>
-
+            <AlertDialogCancel className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400">
+              Finish
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
     </>
   );
 }

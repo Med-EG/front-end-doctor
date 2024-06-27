@@ -1,9 +1,8 @@
-import './App.css'
-import axios from 'axios';
+import "./App.css";
+import axios from "axios";
 import { DateProvider } from "./context/DateContext";
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-
 
 // Pages imports
 import Home from "./pages/Home";
@@ -28,6 +27,9 @@ import ShowDayDetails from "./pages/ShowDayDetails";
 import Chat from "./pages/Chat";
 import MyAppointments from "./pages/MyAppointments";
 import NotFound from "./pages/NotFound";
+import AddNewWorkingDays from "./pages/AddNewWorkingDays";
+import AddNewWorkingHours from "./pages/AddNewWorkingHours";
+import DoctorUpdateProfile from "./pages/doctorUpdateProfile";
 import UpdateProfile from './pages/updateProfile';
 
 
@@ -46,7 +48,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/Appointments/:id" element={<MyAppointments />} />
-
+          <Route path="/updateProfile" element={<DoctorUpdateProfile />} />
 
           {/* Login & Register */}
           {/*======================================================================*/}
@@ -55,8 +57,10 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
           <Route path="/setWorkingHours" element={<DoctorWorkingHours />} />
-          <Route path="/allWorkingDays" element={<AllWorkingDaysAndHours />} />
-          <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
+            <Route path="/allWorkingDays" element={<AllWorkingDaysAndHours />} />
+            <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
+          <Route path="/addNewWorkingDays" element={<AddNewWorkingDays />} />
+          <Route path="/addNewWorkingHours" element={<AddNewWorkingHours />} />
           <Route path='/updateProfile' element={<UpdateProfile/>}/>
           {/* Medical Record */}
           {/*======================================================================*/}
@@ -80,4 +84,3 @@ function App() {
 }
 
 export default App;
-

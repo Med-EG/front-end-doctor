@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function MyCombobox2({ options = [], onChange, placeholder }) {
+function MyCombobox({ options = [], onChange, placeholder }) {
   const [selectedOption, setSelectedOption] = useState(""); // Initialize to empty string
   const [query, setQuery] = useState("");
 
@@ -64,4 +64,4 @@ function MyCombobox2({ options = [], onChange, placeholder }) {
   );
 }
 
-export default MyCombobox2;
+export default MyCombobox;

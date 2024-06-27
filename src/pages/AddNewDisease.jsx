@@ -20,8 +20,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-function AddNewDisease({med_id ,forceRerender}) {
-
+function AddNewDisease({ med_id, forceRerender }) {
   const navigate = useNavigate();
   const [diseaseInfo, setDiseaseInfo] = useState(new Disease());
   const [allDiseases, setAllDiseases] = useState([]);
@@ -36,17 +35,18 @@ function AddNewDisease({med_id ,forceRerender}) {
   const handlesubmit = (e) => {
     e.preventDefault();
 
-    diseaseInfo.addDisease(med_id,name)
-      .then(()=>{
+    diseaseInfo
+      .addDisease(med_id, name)
+      .then(() => {
         handleShowNotification("Disease Added successfully!", true);
         forceRerender();
       })
-      .catch(()=>handleShowNotification("please fill all fields", false));
+      .catch(() => handleShowNotification("please fill all fields", false));
     var inputs = document.getElementsByClassName("disease_info");
     for (var i = 0; i < inputs.length; i++) {
       inputs[i].value = "";
     }
-  }
+  };
   const handleShowNotification = (message, isSuccess) => {
     const iconColor = isSuccess ? "text-green-500" : "text-red-500"; // Define colors for success and error icons
     const icon = isSuccess ? (
@@ -70,7 +70,6 @@ function AddNewDisease({med_id ,forceRerender}) {
 
   return (
     <>
-
       <AlertDialog>
         <AlertDialogTrigger>
           <button>
@@ -84,18 +83,20 @@ function AddNewDisease({med_id ,forceRerender}) {
           <AlertDialogHeader>
             <AlertDialogDescription>
               <section className="w-full h-full ">
-
-
                 {/* The Form  */}
                 {/* ============================ */}
                 <div className="text-center w-full flex justify-center items-center m-auto">
                   <form className="w-full">
                     <div className="py-6 first:pt-0 last:pb-0 w-full m-auto first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
-                      <h2 className="font-bold text-5xl gradient-text text-start py-5">Disease Information</h2>
+                      <h2 className="font-bold text-5xl gradient-text text-start py-5">
+                        Disease Information
+                      </h2>
                       <div className="mt-2 space-y-3">
-
-                        <MyCombobox options={allDiseases} setName={setName} placeholder={"Disease Name"} />
-
+                        <MyCombobox
+                          options={allDiseases}
+                          setName={setName}
+                          placeholder={"Disease Name"}
+                        />
 
                         {/* Notes */}
                         <div className="relative">
@@ -104,7 +105,9 @@ function AddNewDisease({med_id ,forceRerender}) {
                             className="disease_info peer p-4 block w-full border-blue-300 border-2 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600 focus:pt-6 focus:pb-2 [&:not(:placeholder-shown)]:pt-6 [&:not(:placeholder-shown)]:pb-2 autofill:pt-6 autofill:pb-2"
                             rows="3"
                             placeholder="This is a textarea placeholder"
-                            onChange={(e) => (diseaseInfo.notes = e.target.value)}
+                            onChange={(e) =>
+                              (diseaseInfo.notes = e.target.value)
+                            }
                           ></textarea>
                           <label
                             htmlFor="hs-floating-textarea"
@@ -132,14 +135,12 @@ function AddNewDisease({med_id ,forceRerender}) {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel
-              className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400"
-            >Finish</AlertDialogCancel>
-            
+            <AlertDialogCancel className="py-3 px-5  w-full rounded-lg shadow-sm text-white bg-green-600 primary-text-semibold shadow-gray-400">
+              Finish
+            </AlertDialogCancel>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-
     </>
   );
 }
