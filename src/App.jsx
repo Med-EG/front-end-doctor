@@ -30,10 +30,10 @@ import NotFound from "./pages/NotFound";
 import AddNewWorkingDays from "./pages/AddNewWorkingDays";
 import AddNewWorkingHours from "./pages/AddNewWorkingHours";
 import DoctorUpdateProfile from "./pages/doctorUpdateProfile";
-import UpdateProfile from './pages/doctorUpdateProfile';
+import UpdateProfile from "./pages/doctorUpdateProfile";
 import EditWorkingDays from "./pages/EditWorkingDays";
 import EditWorkingHours from "./pages/EditWorkingHours";
-
+import { WorkingDaysProvider } from "./context/WorkingDaysContext";
 
 function App() {
   let token = localStorage.getItem("token");
@@ -45,43 +45,51 @@ function App() {
   return (
     <>
       <DateProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/chat" element={<Chat />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/Appointments/:id" element={<MyAppointments />} />
-          <Route path="/updateProfile" element={<DoctorUpdateProfile />} />
+        <WorkingDaysProvider>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/chat" element={<Chat />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/Appointments/:id" element={<MyAppointments />} />
+            <Route path="/updateProfile" element={<DoctorUpdateProfile />} />
 
-          {/* Login & Register */}
-          {/*======================================================================*/}
+            {/* Login & Register */}
+            {/*======================================================================*/}
 
-          <Route path="/signup" element={<DoctorRegister />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
-          <Route path="/setWorkingHours" element={<DoctorWorkingHours />} />
-          <Route path="/editWorkingDays" element={<EditWorkingDays />} />
-          <Route path="/editWorkingHours" element={<EditWorkingHours />} />
-          <Route path="/allWorkingDays" element={<AllWorkingDaysAndHours />} />
-          <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
-          <Route path="/addNewWorkingDays" element={<AddNewWorkingDays />} />
-          <Route path="/addNewWorkingHours" element={<AddNewWorkingHours />} />
-          <Route path='/updateProfile' element={<UpdateProfile/>}/>
-          {/* Medical Record */}
-          {/*======================================================================*/}
+            <Route path="/signup" element={<DoctorRegister />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
+            <Route path="/setWorkingHours" element={<DoctorWorkingHours />} />
+            <Route path="/editWorkingDays" element={<EditWorkingDays />} />
+            <Route path="/editWorkingHours" element={<EditWorkingHours />} />
+            <Route
+              path="/allWorkingDays"
+              element={<AllWorkingDaysAndHours />}
+            />
+            <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
+            <Route path="/addNewWorkingDays" element={<AddNewWorkingDays />} />
+            <Route
+              path="/addNewWorkingHours"
+              element={<AddNewWorkingHours />}
+            />
+            <Route path="/updateProfile" element={<UpdateProfile />} />
+            {/* Medical Record */}
+            {/*======================================================================*/}
 
-          <Route path="/MedicalRecord" element={<MedicalRecord />} />
-          {/* <Route path="/addDisease" element={<AddNewDisease />} />
+            <Route path="/MedicalRecord" element={<MedicalRecord />} />
+            {/* <Route path="/addDisease" element={<AddNewDisease />} />
           <Route path="/addMedicine" element={<AddNewMedicine />} />
           <Route path="/addAllergy" element={<AddNewAllergy />} />
           <Route path="/addOperation" element={<AddNewOperation />} /> */}
-          <Route path="/FatherEdit" element={<FatherEdit />} />
-          <Route path="/MotherEdit" element={<MotherEdit />} />
-          <Route path="/SecondDegreeEdit" element={<SecondDegreeEdit />} />
-          <Route path="/DiseaseEdit/:id" element={<DiseaseEditPage />} />
-          <Route path="/MedicineEdit/:id" element={<MedicationEditPage />} />
-          <Route path="/AllergyEdit/:id" element={<AllergyEditPage />} />
-          <Route path="/OperationEdit/:id" element={<OperationEditPage />} />
-        </Routes>
+            <Route path="/FatherEdit" element={<FatherEdit />} />
+            <Route path="/MotherEdit" element={<MotherEdit />} />
+            <Route path="/SecondDegreeEdit" element={<SecondDegreeEdit />} />
+            <Route path="/DiseaseEdit/:id" element={<DiseaseEditPage />} />
+            <Route path="/MedicineEdit/:id" element={<MedicationEditPage />} />
+            <Route path="/AllergyEdit/:id" element={<AllergyEditPage />} />
+            <Route path="/OperationEdit/:id" element={<OperationEditPage />} />
+          </Routes>
+        </WorkingDaysProvider>
       </DateProvider>
     </>
   );
