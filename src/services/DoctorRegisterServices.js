@@ -69,29 +69,38 @@ export async function login(email, password) {
 }
 
 export async function setWorkingDays(day_of_week) {
+  // Retrieve doctor_id from localStorage
+  const doctor_id = localStorage.getItem("id");
+
+  // Prepare POST data
   const postData = {
-    doctor_id: localStorage.getItem("id"),
+    doctor_id: doctor_id,
     day_of_week: day_of_week,
   };
 
+  // Retrieve authToken (token) from localStorage
   const authToken = localStorage.getItem("token");
-  console.log(authToken);
 
   try {
+    // Make a POST request to the API endpoint
     const response = await axios.post(
       "https://api-medeg.online/api/medEG/day",
       postData,
       {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${authToken}`, // Include authToken in Authorization header
         },
       }
     );
+
+    // Return the response data
     return response.data;
   } catch (error) {
+    // Throw error for handling at the caller level
     throw error;
   }
 }
+
 export async function setWorkingHours(start_time, end_time, working_day_id) {
   const postData = {
     doctor_id: localStorage.getItem("id"),

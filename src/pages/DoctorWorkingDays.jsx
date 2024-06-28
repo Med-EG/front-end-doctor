@@ -32,23 +32,28 @@ function DoctorWorkingDays() {
 
   const handleNextButtonClick = async (event) => {
     event.preventDefault();
+  
     // Check if any days are selected
     if (selectedDays.length === 0) {
       console.log("Please select at least one working day.");
       return;
     }
-
+  
     try {
       // Send the API request for each selected day
       await Promise.all(selectedDays.map((day) => setWorkingDays(day)));
       console.log("Working days set successfully:", selectedDays);
+  
       // Reset selected days
       setSelectedDays([]);
-      navigate("/setWorkingHours");
+  
+      // Navigate to setWorkingHours page
+      window.location.href = "http://localhost:5173/setWorkingHours";
     } catch (error) {
       console.error("Error setting working days:", error);
     }
   };
+  
 
   return (
     <>

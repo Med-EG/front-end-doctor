@@ -93,12 +93,6 @@ function Login() {
                     >
                       Password
                     </label>
-                    <a
-                      className="text-sm gradient-text  decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                      href="../examples/html/recover-account.html"
-                    >
-                      Forgot password?
-                    </a>
                   </div>
 
                   <input
@@ -109,20 +103,7 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                   />
 
-                  <div className="flex mt-4">
-                    <input
-                      data-hs-toggle-password='{"target": "#hs-toggle-password-with-checkbox"}'
-                      id="hs-toggle-password-checkbox"
-                      type="checkbox"
-                      className="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-                    />
-                    <label
-                      htmlFor="hs-toggle-password-checkbox"
-                      className="text-sm text-gray-500 ms-3 dark:text-gray-400"
-                    >
-                      Show password
-                    </label>
-                  </div>
+                  
 
                   <p
                     className="hidden text-xs text-red-600 mt-2"
