@@ -108,6 +108,7 @@ export async function setWorkingHours(start_time, end_time, working_day_id) {
     start_time: start_time,
     end_time: end_time,
   };
+
   try {
     const response = await axios.post(
       "https://api-medeg.online/api/medEG/hour",
@@ -120,9 +121,32 @@ export async function setWorkingHours(start_time, end_time, working_day_id) {
     );
     return response.data;
   } catch (error) {
-    throw error;
+    if (error.response) {
+      // Handle specific error cases based on server response
+      if (error.response.status === 400) {
+        // Handle specific error message related to working_day_id
+        if (
+          error.response.data &&
+          error.response.data.error &&
+          error.response.data.error.working_day_id
+        ) {
+          throw new Error(error.response.data.error.working_day_id[0]);
+        }
+        // Generic error message for other 400 errors
+        throw new Error("Bad request: " + error.response.data.message);
+      }
+      // Handle other response statuses (e.g., 401 Unauthorized)
+      throw new Error("Server responded with status " + error.response.status);
+    } else if (error.request) {
+      // Handle request made but no response received
+      throw new Error("No response from server");
+    } else {
+      // Handle other errors in setting up the request
+      throw new Error("Error setting up the request: " + error.message);
+    }
   }
 }
+
 export async function getAllWorkingDaysForADoctor() {
   return axios.get(
     `https://api-medeg.online/api/medEG/day/doctor/${localStorage.getItem(

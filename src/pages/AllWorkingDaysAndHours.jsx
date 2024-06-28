@@ -1,5 +1,5 @@
 import Header from "@/components/common/Header";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   deleteWorkingDay,
   getAllWorkingDaysForADoctor,
@@ -31,8 +31,13 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../components/ui/alert-dialog";
+import { WorkingDaysContext } from "@/context/WorkingDaysContext";
 
 function AllWorkingDaysAndHours() {
+  const navigate = useNavigate();
+  const [workingHours, setWorkingHours] = useState([]);
+  const [workingDays, setWorkingDays] = useState([]);
+
   const TABLE_HEAD = [
     { id: "id", label: "#" },
     { id: "day_of_week", label: "Day" },
@@ -40,10 +45,6 @@ function AllWorkingDaysAndHours() {
     { id: "end_time", label: "End Time", width: 180 },
     { id: "actions", label: "Actions", width: 88 },
   ];
-
-  const navigate = useNavigate();
-  const [workingHours, setWorkingHours] = useState([]);
-  const [workingDays, setWorkingDays] = useState([]);
 
   useEffect(() => {
     getAllWorkingHoursForADoctor().then((res) => {
@@ -79,18 +80,17 @@ function AllWorkingDaysAndHours() {
         <h2 className="text-start font-bold gradient-text text-3xl mb-14">
           Doctor's Schedule Management :
         </h2>
-        <Link to={"/EditWorkingDays"}>
-          <button
-            onClick={() => {
-              handleClick();
-            }}
-          >
-            <i
-              className="fa-solid fa-circle-plus fa-2x"
-              style={{ color: "#2d66c8" }}
-            ></i>
-          </button>
-        </Link>
+
+        <button
+          onClick={() => {
+            handleClick();
+          }}
+        >
+          <i
+            className="fa-solid fa-circle-plus fa-2x"
+            style={{ color: "#2d66c8" }}
+          ></i>
+        </button>
       </div>
 
       <div className="overflow-x-auto">
