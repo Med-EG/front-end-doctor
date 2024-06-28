@@ -79,7 +79,7 @@ function AllWorkingDaysAndHours() {
         <h2 className="text-start font-bold gradient-text text-3xl mb-14">
           Doctor's Schedule Management :
         </h2>
-        <Link to={"/addNewWorkingDays"}>
+        <Link to={"/EditWorkingDays"}>
           <button
             onClick={() => {
               handleClick();

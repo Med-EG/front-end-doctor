@@ -186,6 +186,11 @@ a {
   .xs-order-1 {
     order: 1;
   }
+
+  .xs-overflow{
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
 }
 
 .fs-half {
