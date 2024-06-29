@@ -20,7 +20,6 @@ class Patient {
     }
 
     async login() {
-
         const postData = {
             "email": this.email,
             "password": this.password

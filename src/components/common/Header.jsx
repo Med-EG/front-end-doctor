@@ -20,6 +20,7 @@ import {
 const Header = () => {
   const navigate = useNavigate();
   const [profileInfo, setProfileInfo] = useState([]);
+  const role = localStorage.getItem("role")
 
 
   useEffect(() => {
@@ -73,6 +74,10 @@ const Header = () => {
     {
       label: "Appointments",
       to: `/Appointments/${localStorage.getItem("id")}`,
+    },
+    {
+      label: "Doctor Assistants",
+      to: "/doctor/assistants",
     },
   ];
 
@@ -132,7 +137,7 @@ const Header = () => {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-
+            
             <div className="md:hidden">
               <button
                 type="button"
@@ -166,7 +171,8 @@ const Header = () => {
           {/* End Button Group */}
 
           {/* Collapse */}
-          <div
+          { role != 'assistant' ? 
+          <div 
             id="navbar-collapse-with-animation"
             className={`hs-collapse ${isCollapsed ? "hidden" : ""
               } overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6`}
@@ -184,7 +190,16 @@ const Header = () => {
                 </div>
               ))}
             </div>
-          </div>
+          </div>  : 
+          <div 
+              id="navbar-collapse-with-animation"
+              className={`hs-collapse ${isCollapsed ? "hidden" : ""
+                } overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6`}
+            >
+              <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
+              </div>
+          </div>  
+          }
           {/* End Collapse */}
         </nav>
       </header>

@@ -28,6 +28,9 @@ import ShowDayDetails from "./pages/ShowDayDetails";
 import Chat from "./pages/Chat";
 import MyAppointments from "./pages/MyAppointments";
 import NotFound from "./pages/NotFound";
+import DoctorAssistant from './pages/DoctorAssistant'
+import DoctorAssistantCreate from './pages/DoctorAssistantCreate'
+import AssistantAppointment from './pages/AssistantAppointment';
 
 
 function App() {
@@ -45,17 +48,24 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/Appointments/:id" element={<MyAppointments />} />
-
-
+          <Route path="/Assistant/Appointments/:id" element={<AssistantAppointment />} />
+          <Route path="/doctor/assistants" element={<DoctorAssistant />} />
+          <Route path="/doctor/assistants/create" element={<DoctorAssistantCreate />} />
+          <Route path='/assistant/appointments' element={<AssistantAppointment/>}/>
           {/* Login & Register */}
           {/*======================================================================*/}
 
           <Route path="/signup" element={<DoctorRegister />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/doctor/assistant/signup" element={<DoctorRegister />} />
+          <Route path="/doctor/assistant/login" element={<Login />} />
+
           <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
           <Route path="/setWorkingHours" element={<DoctorWorkingHours />} />
         <Route path="/allWorkingDays" element={<AllWorkingDaysAndHours />} />
         <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
+        
+
 
           {/* Medical Record */}
           {/*======================================================================*/}

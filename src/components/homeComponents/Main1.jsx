@@ -8,7 +8,9 @@ function Main1() {
   const button = "Show Appointment";
 
   function handleClick() {
-    navigate("/doctors");
+    const doctorId = localStorage.getItem("id")
+    const url = "/Appointments/" + doctorId
+    navigate(url);
   }
   return (
     <>

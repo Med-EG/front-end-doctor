@@ -1,6 +1,8 @@
-import React from "react";
+import { deleteBookAppointment } from "@/services/AppointmentServices";
 
-const AppointmentCard = ({
+
+function AppointmentCard ({
+  appointmentId,
   src,
   doctorName,
   location,
@@ -8,7 +10,19 @@ const AppointmentCard = ({
   date,
   time,
   price
-}) => {
+}) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Call the API or perform the necessary action to delete 
+      await deleteBookAppointment(appointmentId);
+      window.location.reload();
+  
+    } catch (error) {
+      console.log(error)
+    }
+  };
+  let role = localStorage.getItem("role");
   return (
     <div className="bg-white border rounded-xl shadow-sm sm:flex my-10">
       <div className="flex-shrink-0 rounded-s-xl overflow-hidden w-32 sm:w-60 md:w-40">
@@ -31,10 +45,11 @@ const AppointmentCard = ({
           <h4 className="text-md blue-1">Date : {date}</h4>
           <h4 className="text-md blue-1">Time : {time}</h4>
           <h4 className="text-md blue-1">price : {price} L.E</h4>
+            {role == "assistant" && <button className="w-full border rounded-3xl mt-3 bg-red-600 hover:bg-white hover:text-red-600 text-slate-100" onClick={handleSubmit(appointmentId)}>Delete</button>}
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default AppointmentCard;
