@@ -37,7 +37,7 @@ const Header = () => {
     navigate("/updateProfile");
   }
   function medicalrecord() {
-    navigate("/record");
+    navigate("/allWorkingDays");
   }
   // function logout() {}
   const logout = async () => {

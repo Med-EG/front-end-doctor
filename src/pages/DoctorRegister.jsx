@@ -27,7 +27,7 @@ function DoctorRegister() {
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
-    email: "",
+    email: "", 
     password: "",
     confirm_password: "",
     gender: "",
@@ -40,7 +40,7 @@ function DoctorRegister() {
     scientific_degree: "",
     doctor_image: "",
     price: "",
-    rating: "",
+    rating: "0",
     years_of_experience: "",
   });
 
