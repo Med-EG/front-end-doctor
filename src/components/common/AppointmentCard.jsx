@@ -30,7 +30,6 @@ const AppointmentCard = ({
         <div className="mt-2">
           <h4 className="text-md blue-1">Date : {date}</h4>
           <h4 className="text-md blue-1">Time : {time}</h4>
-          <h4 className="text-md blue-1">price : {price} L.E</h4>
         </div>
       </div>
     </div>

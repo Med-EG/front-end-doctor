@@ -1,22 +1,19 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext , useEffect } from "react";
 import { setWorkingDays } from "../services/DoctorRegisterServices";
 import logoIcon from "../assets/doctorslogo.svg";
 import { useNavigate } from "react-router-dom";
 import { WorkingDaysContext } from "../context/WorkingDaysContext";
+import { getAvailableDays } from "@/services/doctors";
 
 function AddNewWorkingDays() {
   const { newDays, addNewDay, saveNewDays } = useContext(WorkingDaysContext);
   const navigate = useNavigate();
+  const [days,setDays]=useState([]);
 
-  const days = [
-    "Saturday",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-  ];
+  useEffect(()=>{
+    getAvailableDays()
+    .then(res=>{setDays(res.data)})
+  },[])
 
   const [selectedDays, setSelectedDays] = useState([]);
 
