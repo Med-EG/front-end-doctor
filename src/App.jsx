@@ -66,6 +66,11 @@ function App() {
               path="/doctor/assistant/signup"
               element={<DoctorRegister />}
             />
+            <Route path="/doctor/assistants" element={<DoctorAssistant />} />
+            <Route
+              path="/doctor/assistants/create"
+              element={<DoctorAssistantCreate />}
+            />
             <Route path="/doctor/assistant/login" element={<Login />} />
 
             <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
