@@ -1,5 +1,17 @@
 import axios from "axios";
 
+
+export async function setNewAssistant(doctor_id,name,email,password){
+
+  const postData={
+    "doctor_id":doctor_id , 
+    "assistant_name" : name ,
+    "email" : email ,
+    "password" : password
+  }
+  return await axios.post("https://api-medeg.online/api/medEG/doctor/assistant/signup",postData)
+}
+
 export async function setNewDoctor({
   first_name,
   last_name,
@@ -40,8 +52,14 @@ export async function setNewDoctor({
     postData.append("rating", parseInt(rating));
     postData.append("years_of_experience", parseInt(years_of_experience));
 
+    let url = "https://api-medeg.online/api/medEG/doctor/signup";
+    let path = window.location.pathname;
+    if (path == "/doctor/assistant/signup"){
+      url = "https://api-medeg.online/api/medEG/doctor/assistant/signup";
+    }
+
     const response = await axios.post(
-      "https://api-medeg.online/api/medEG/doctor/signup",
+      url,
       postData
     );
 
@@ -58,8 +76,12 @@ export async function login(email, password) {
   };
 
   try {
-    const response = await axios.post(
-      "https://api-medeg.online/api/medEG/doctor/login",
+    let url = "https://api-medeg.online/api/medEG/doctor/login"
+    let path = window.location.pathname;
+    if (path == "/doctor/assistant/login"){
+      url = "https://api-medeg.online/api/medEG/doctor/assistant/login";
+    }
+    const response = await axios.post(url,
       postData
     );
     return response.data;

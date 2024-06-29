@@ -27,6 +27,10 @@ import ShowDayDetails from "./pages/ShowDayDetails";
 import Chat from "./pages/Chat";
 import MyAppointments from "./pages/MyAppointments";
 import NotFound from "./pages/NotFound";
+import DoctorAssistant from "./pages/DoctorAssistant";
+import DoctorAssistantCreate from "./pages/DoctorAssistantCreate";
+import AssistantAppointment from "./pages/AssistantAppointment";
+
 import AddNewWorkingDays from "./pages/AddNewWorkingDays";
 import AddNewWorkingHours from "./pages/AddNewWorkingHours";
 import DoctorUpdateProfile from "./pages/doctorUpdateProfile";
@@ -58,21 +62,20 @@ function App() {
 
             <Route path="/signup" element={<DoctorRegister />} />
             <Route path="/login" element={<Login />} />
+            <Route
+              path="/doctor/assistant/signup"
+              element={<DoctorRegister />}
+            />
+            <Route path="/doctor/assistant/login" element={<Login />} />
+
             <Route path="/setWorkingDays" element={<DoctorWorkingDays />} />
             <Route path="/setWorkingHours" element={<DoctorWorkingHours />} />
-            <Route path="/editWorkingDays" element={<EditWorkingDays />} />
-            <Route path="/editWorkingHours" element={<EditWorkingHours />} />
             <Route
               path="/allWorkingDays"
               element={<AllWorkingDaysAndHours />}
             />
             <Route path="/workingDayDetails/:id" element={<ShowDayDetails />} />
-            <Route path="/addNewWorkingDays" element={<AddNewWorkingDays />} />
-            <Route
-              path="/addNewWorkingHours"
-              element={<AddNewWorkingHours />}
-            />
-            <Route path="/updateProfile" element={<UpdateProfile />} />
+
             {/* Medical Record */}
             {/*======================================================================*/}
 

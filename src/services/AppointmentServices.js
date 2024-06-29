@@ -56,6 +56,23 @@ export async function bookAppointment(appointmentData) {
   }
 }
 
+export async function deleteBookAppointment(id) {
+  try {
+    const token = localStorage.getItem("token")
+    const url = "https://api-medeg.online/api/medEG/appointment/" + id;
+    const response = await axios.delete(url, 
+      {
+        headers: {
+          'token': token,
+        }
+      });
+    return response.data;
+  } catch (error) {
+    console.error("Error booking appointment:", error);
+    throw error;
+  }
+}
+
 export async function checkChat(chatData) {
   try {
     const response = await axios.post(
