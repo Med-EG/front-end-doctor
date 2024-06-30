@@ -7,9 +7,9 @@ import { useParams } from "react-router-dom";
 import icon from "../assets/no_app.svg";
 import useRequireAuth from "@/custom hooks/useRequireAuth";
 
-function MyAppointments() {
+function AssistantAppointment() {
   useRequireAuth();
-  const { id } = useParams();
+  const { id } = localStorage.getItem("doc_id");
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
@@ -25,26 +25,7 @@ function MyAppointments() {
 
   return (
     <>
-      <Header />
-      <div className="flex flex-row w-10/12 m-auto p-5  items-center space-x-2 gap-5">
-            <h2 className="basis-1/2 font-bold text-3xl gradient-text text-start py-5">
-                My Appointments
-            </h2>
-            <div className="basis-1/2 flex justify-end">
-                <div className="border-blue-300 border-2 rounded-3xl">
-                    <div
-                    to="/doctor/assistants/create"
-                    className="flex-none text-xl inline-block font-semibold focus:outline-none focus:opacity-80 p-3"
-                    aria-label="Preline"
-                    >
-                        <h2 className="basis-1/2 font-bold text-xl gradient-text text-start">
-                            Sort By <i className="fa-solid fa-arrow-up-wide-short"></i>
-                        </h2>
-                    </div>
-                </div>
-            
-            </div>
-        </div>
+
       <div className="m-auto w-10/12 flex justify-around flex-wrap">
         {appointments &&
           appointments.length!==0 ?
@@ -54,10 +35,9 @@ function MyAppointments() {
               doctorName={`${appointment?.patient?.first_name} ${appointment?.patient?.last_name}`}
               date={appointment?.appointment_day}
               time={appointment?.appointment_time}
-              appointmentId={appointment?.id}
             />
           ))
-         : (
+          : (
           <>
             <div className="flex flex-col justify-center items-center w-full h-72">
               <img src={icon} alt="" />
@@ -73,4 +53,4 @@ function MyAppointments() {
   );
 }
 
-export default MyAppointments;
+export default AssistantAppointment;

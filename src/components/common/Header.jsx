@@ -11,14 +11,13 @@ import {
 } from "@/components/ui/dropdown-menu"; // Ensure the path is correct
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {
-  getDoctorByID,
-  doctorLogout,
-} from "../../services/homeServices";
+import { getDoctorByID, doctorLogout } from "../../services/homeServices";
 
 const Header = () => {
   const navigate = useNavigate();
   const [profileInfo, setProfileInfo] = useState([]);
+  const role = localStorage.getItem("role");
+
   const [loading, setLoading] = useState(true); // Start with true
 
   useEffect(() => {
@@ -62,10 +61,26 @@ const Header = () => {
   };
 
   const navLinks = [
-    { label: "Home", to: "/" },
-    { label: "Medical Records", to: "/MedicalRecord" },
-    { label: "Chat", to: "/chat" },
-    { label: "Appointments", to: `/Appointments/${localStorage.getItem("id")}` },
+    {
+      label: "Home",
+      to: "/",
+    },
+    {
+      label: "Medical Records",
+      to: "/MedicalRecord",
+    },
+    {
+      label: "Chat",
+      to: "/chat",
+    },
+    {
+      label: "Appointments",
+      to: `/Appointments/${localStorage.getItem("id")}`,
+    },
+    {
+      label: "Doctor Assistants",
+      to: "/doctor/assistants",
+    },
   ];
 
   return (
@@ -74,9 +89,16 @@ const Header = () => {
         <></>
       ) : (
         <header className="flex flex-wrap md:justify-start md:flex-nowrap z-100 w-full py-7">
-          <nav className="relative max-w-screen-xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center px-4 md:px-8 mx-auto" aria-label="Global">
+          <nav
+            className="relative max-w-screen-xl w-full flex flex-wrap md:grid md:grid-cols-12 basis-full items-center px-4 md:px-8 mx-auto"
+            aria-label="Global"
+          >
             <div className="md:col-span-3">
-              <Link to="/" className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80" aria-label="Preline">
+              <Link
+                to="/"
+                className="flex-none rounded-xl text-xl inline-block font-semibold focus:outline-none focus:opacity-80"
+                aria-label="Preline"
+              >
                 <img src={logo} alt="logo" className="w-40" />
               </Link>
             </div>
@@ -94,7 +116,8 @@ const Header = () => {
                     <div className="flex flex-col justify-center items-center w-full">
                       <div className="flex flex-col items-center justify-center">
                         <h2 className="primary-color primary-text-semibold text-center">
-                          {profileInfo?.doctor?.first_name} {profileInfo?.doctor?.last_name}
+                          {profileInfo?.doctor?.first_name}{" "}
+                          {profileInfo?.doctor?.last_name}
                         </h2>
                         <h2 className="primary-color primary-text-semibold text-center">
                           {profileInfo?.doctor?.specialization}
@@ -108,7 +131,9 @@ const Header = () => {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="flex justify-center primary-color secondary-text-semibold">
-                    <button onClick={medicalrecord}>Edit Working Days & Hours</button>
+                    <button onClick={medicalrecord}>
+                      Edit Working Days & Hours
+                    </button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="flex justify-center text-red-500 secondary-text-semibold focus:bg-red-400 focus:text-white">
@@ -124,7 +149,11 @@ const Header = () => {
                   aria-label="Toggle navigation"
                 >
                   <svg
-                    className={isCollapsed ? "hs-collapse-open:hidden flex-shrink-0 size-4" : "hs-collapse-open:block hidden flex-shrink-0 size-4"}
+                    className={
+                      isCollapsed
+                        ? "hs-collapse-open:hidden flex-shrink-0 size-4"
+                        : "hs-collapse-open:block hidden flex-shrink-0 size-4"
+                    }
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -144,12 +173,18 @@ const Header = () => {
             </div>
             <div
               id="navbar-collapse-with-animation"
-              className={`hs-collapse ${isCollapsed ? "hidden" : ""} overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6`}
+              className={`hs-collapse ${
+                isCollapsed ? "hidden" : ""
+              } overflow-hidden transition-all duration-300 basis-full grow md:block md:w-auto md:basis-auto md:order-2 md:col-span-6`}
             >
               <div className="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:justify-center md:items-center md:gap-y-0 md:gap-x-7 md:mt-0">
                 {navLinks.map((link, index) => (
                   <div key={index}>
-                    <Link to={link.to} className="relative inline-block text-blue-900 font-medium before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1" aria-current="page">
+                    <Link
+                      to={link.to}
+                      className="relative inline-block text-blue-900 font-medium before:absolute before:bottom-0.5 before:start-0 before:-z-[1] before:w-full before:h-1"
+                      aria-current="page"
+                    >
                       {link.label}
                     </Link>
                   </div>

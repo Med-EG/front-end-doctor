@@ -19,12 +19,26 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let url = "/";
+      let path = window.location.pathname;
       const response = await login(email, password);
+      if (response.doctor) {
+        localStorage.setItem("id", `${response.doctor.doctor_id}`);
+        localStorage.setItem("role", "doctor");
+      }
+      else {
+        localStorage.setItem("id", `${response.assistant.doctor_id}`);
+        localStorage.setItem("role", "assistant");
+      }
       localStorage.removeItem("token");
       localStorage.setItem("token", response.token);
-      localStorage.setItem("id", `${response.doctor.doctor_id}`);
-      localStorage.setItem("role", "doctor");
-      navigate("/");
+      
+      if (path == "/doctor/assistant/login"){
+        url = `/Appointments/${localStorage.getItem("id")}`;
+      }
+      navigate(url);
+      window.location.reload();
+
     } catch (error) {
       setPassError("Invalid Email Or Password");
     }
