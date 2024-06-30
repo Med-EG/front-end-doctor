@@ -18,6 +18,7 @@ export async function setNewDoctor({
   price,
   rating,
   years_of_experience,
+  bio,
 }) {
   try {
     const postData = new FormData();
@@ -39,6 +40,7 @@ export async function setNewDoctor({
     postData.append("price", price);
     postData.append("rating", parseInt(rating));
     postData.append("years_of_experience", parseInt(years_of_experience));
+    postData.append("bio", bio);
 
     const response = await axios.post(
       "https://api-medeg.online/api/medEG/doctor/signup",
