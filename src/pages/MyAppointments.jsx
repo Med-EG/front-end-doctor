@@ -32,15 +32,7 @@ function MyAppointments() {
             </h2>
             <div className="basis-1/2 flex justify-end">
                 <div className="border-blue-300 border-2 rounded-3xl">
-                    <div
-                    to="/doctor/assistants/create"
-                    className="flex-none text-xl inline-block font-semibold focus:outline-none focus:opacity-80 p-3"
-                    aria-label="Preline"
-                    >
-                        <h2 className="basis-1/2 font-bold text-xl gradient-text text-start">
-                            Sort By <i className="fa-solid fa-arrow-up-wide-short"></i>
-                        </h2>
-                    </div>
+                    
                 </div>
             
             </div>
