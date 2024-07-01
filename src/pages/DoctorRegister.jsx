@@ -121,7 +121,7 @@ function DoctorRegister() {
         "Doctor Created successfully!",
         true,
         "Next", // You don't need the button and onClick props here
-        () => navigate("/setWorkingDays") // Navigate to the working days page if successful
+        () => {window.location.href="http://localhost:5173/setWorkingDays";} // Navigate to the working days page if successful
       );
     } catch (error) {
       const extractedErrorMessages = [];

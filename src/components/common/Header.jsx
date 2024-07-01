@@ -130,11 +130,7 @@ const Header = () => {
                     <button onClick={edit}>Edit Profile</button>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem className="flex justify-center primary-color secondary-text-semibold">
-                    <button onClick={medicalrecord}>
-                      Edit Working Days & Hours
-                    </button>
-                  </DropdownMenuItem>
+                  
                   <DropdownMenuSeparator />
                   <DropdownMenuItem className="flex justify-center text-red-500 secondary-text-semibold focus:bg-red-400 focus:text-white">
                     <button onClick={logout}>Log Out</button>
